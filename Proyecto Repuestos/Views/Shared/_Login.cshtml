@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/nouislider.min.css" />
+    <link rel="stylesheet" href="~/WebStyles/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/style.css" />
+
+
+</head>
+<body style="background-color: #57071F">
+    <header>
+
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="#" class="logo">
+                                <img src="~/WebStyles/img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="header-search">
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <div class="dropdown">
+
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="~/WebStyles/img/llantas.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="~/WebStyles/img/aro.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
+                                                <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>3 Item(s) seleccionados</small>
+                                        <h5>SUBTOTAL: $2940.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="#">Ver Carrito</a>
+                                        <a href="#">Pagar  <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+    <main>
+        <div class="container">
+
+            <br /><br /><br />
+            @RenderBody()
+
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/additional-methods.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation.unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </bodyid>
+</html>

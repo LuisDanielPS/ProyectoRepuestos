@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Inicio</title>
+
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/nouislider.min.css" />
+    <link rel="stylesheet" href="~/WebStyles/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/WebStyles/css/style.css" />
+    
+</head>
+<body>
+
+    <header>
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li><a href="#"><i class="fa fa-phone"></i> 2444-0542</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i> repuestostotal@gmail.com</a></li>
+                    <li><a href="https://goo.gl/maps/VP424apG2Ypz8cjd8"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
+                </ul>
+                <ul class="header-links pull-right">
+                    <li><a href="@Url.Action("Login","Home")"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>
+                    <li><a href=""><i class="fa fa-user-o"></i> Usuario: </a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="#" class="logo">
+                                <img src="~/WebStyles/img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form>
+                                <select class="input-select">
+                                    <option value="0">Originales</option>
+                                    <option value="1">Usados</option>
+                                    <option value="1">Genericos</option>
+                                </select>
+                                <input class="input" placeholder="Búsqueda">
+                                <button class="search-btn">Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">3</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="~/WebStyles/img/llantas.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="~/WebStyles/img/aro.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
+                                                <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>3 Item(s) seleccionados</small>
+                                        <h5>SUBTOTAL: $2940.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="#">Ver Carrito</a>
+                                        <a href="#">Pagar  <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    @RenderBody()
+
+
+    <footer id="footer">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Acerca de nosotros</h3>
+                            <p>Proveemos repuestos de vehículos confiables y de calidad, satisfaciendo las necesidades de nuestros clientes.</p>
+                            <ul class="footer-links">
+                                <li><a href="https://goo.gl/maps/VP424apG2Ypz8cjd8"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i>2444-0542</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>repuestostotal@gmail.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clearfix visible-xs"></div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Información</h3>
+                            <ul class="footer-links">
+                                <li><a href="#">¿Quiénes somos?</a></li>
+                                <li><a href="#">Contáctenos</a></li>
+                                <li><a href="#">Política de privacidad</a></li>
+                                <li><a href="#">Términos y condiciones</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Servicios</h3>
+                            <ul class="footer-links">
+                                <li><a href="@Url.Action("Login","Home")">Mi Cuenta</a></li>
+                                <li><a href="#">Ver Carrito</a></li>
+                                <li><a href="#">Ayuda</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <a></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/WebStyles/js/jquery.min.js"></script>
+    <script src="~/WebStyles/js/bootstrap.min.js"></script>
+    <script src="~/WebStyles/js/slick.min.js"></script>
+    <script src="~/WebStyles/js/nouislider.min.js"></script>
+    <script src="~/WebStyles/js/jquery.zoom.min.js"></script>
+    <script src="~/WebStyles/js/main.js"></script>
+    <script src="https://kit.fontawesome.com/1720a7cd30.js" crossorigin="anonymous"></script>
+</body>
+</html>
