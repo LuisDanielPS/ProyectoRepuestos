@@ -35,7 +35,7 @@ namespace Proyecto_Repuestos.Controllers
                 }
                 else
                 {
-                    ViewBag.MsjPantalla = "No se ha podido validar su información";
+                    ViewBag.MsjPantalla = "Error al iniciar sesión por favor verifique su correo electrónico y contraseña";
                     return View("Login");
                 }
             }
@@ -64,7 +64,7 @@ namespace Proyecto_Repuestos.Controllers
                     return RedirectToAction("Login", "Home");
                 else
                 {
-                    ViewBag.MsjPantalla = "No se ha podido registrar su información";
+                    ViewBag.MsjPantalla = "No se ha podido registrar su usuario";
                     return View("Registrarse");
                 }
             }
@@ -80,6 +80,13 @@ namespace Proyecto_Repuestos.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
     }
 }

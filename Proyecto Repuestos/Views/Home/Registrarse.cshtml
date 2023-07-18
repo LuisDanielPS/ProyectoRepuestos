@@ -14,6 +14,14 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header">
                         <h2 class="text-center mb-4">Registro</h2>
+
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div style="text-align:center" class="alert alert-danger" role="alert">
+                                <b>@ViewBag.MsjPantalla</b>
+                            </div>
+                        }
+
                         <div class="form-group">
                             <label for="number">Identificacion</label>
                             @Html.TextBoxFor(m => m.usu_identificacion, new { @type = "text", @placeholder = "---------", @class = "form-control" })
