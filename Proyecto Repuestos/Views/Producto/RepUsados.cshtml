@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Proyecto_Repuestos.Entities.ProductoEnt>
+
+@{
+    ViewBag.Title = "RepUsados";
+}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="#">Inicio</a></li>
+                <li><a href="#">Originales</a></li>
+                <li><a href="#">Genericos</a></li>
+                <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- PRODUCTOS -->
+<div class="section">
+    <div class="container">
+        @if (Model.Any())
+        {
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="product">
+                            <div class="product-img" style="max-height: 150px;">
+                                <img src="~/WebStyles/img/aro.png" alt="">
+                                <div class="product-label">
+                                    <span class="new">USADO</span>
+                                </div>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">@item.categoria_descripcion</p>
+                                <h3 class="product-name"><a href="#">@item.producto_descripcion</a></h3>
+                                <h4 class="product-price">$@item.producto_precio</h4>
+                                <div class="product-btns">
+                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Vista Rápida</span></button>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center" class="alert alert-danger" role="alert">
+                <b>No hay productos disponibles</b>
+            </div>
+        }
+    </div>
+</div>
+<!-- /PRODUCTOS -->
+
+<div id="newsletter" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter">
+                    <p>Suscribirse para recibir <strong>INFORMACIÓN</strong></p>
+                    <form>
+                        <input class="input" type="email" placeholder="Ingresa tu correo">
+                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                    </form>
+                    <ul class="newsletter-follow">
+                        <li>
+                            <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

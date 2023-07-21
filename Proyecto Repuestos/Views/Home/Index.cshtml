@@ -12,8 +12,9 @@
                 <li class="active"><a href="#">Inicio</a></li>
                 <li><a href="#">Originales</a></li>
                 <li><a href="#">Genericos</a></li>
-                <li><a href="#">Usados</a></li>
+                <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
                 <li><a href="#">Accesorios</a></li>
+                <li><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -359,6 +360,9 @@
                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Añadir a carrito</button>
                                     </div>
                                 </div>
+
+
+
                                 <div class="product">
                                     <div class="product-img" style="max-height: 150px;">
                                         <img src="~/WebStyles/img/focolh.png" alt="">

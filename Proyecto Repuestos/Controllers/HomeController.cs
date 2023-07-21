@@ -12,9 +12,10 @@ namespace Proyecto_Repuestos.Controllers
     {
         UsuarioModel model = new UsuarioModel();
 
+
         [HttpGet]
         public ActionResult Index()
-        {
+        { 
             return View();
         }
 
@@ -50,6 +51,14 @@ namespace Proyecto_Repuestos.Controllers
         {
             return View();
         }
+
+
+
+
+
+
+
+
         [HttpPost]
         public ActionResult RegistrarUsuario(UsuarioEnt entidad)
         {
@@ -81,6 +90,8 @@ namespace Proyecto_Repuestos.Controllers
         {
             return View();
         }
+
+
 
         [HttpGet]
         public ActionResult CerrarSesion()

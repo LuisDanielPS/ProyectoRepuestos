@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Proyecto_Repuestos.Entities.UsuarioEnt>
+
+@{
+    ViewBag.Title = "PanelAdmin";
+}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="#">Inicio</a></li>
+                <li><a href="#">Originales</a></li>
+                <li><a href="#">Genericos</a></li>
+                <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">ADMINISTRACION</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
+                            <li><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
+                            <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
+                            <li><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
+                            <li><a href="@Url.Action("Estados","Admin")">Estados</a></li>
+                            <li><a href="@Url.Action("Roles","Admin")">Roles</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead >
+                                <tr>
+                                    <th>Identificación</th>
+                                    <th>Nombre</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.usu_identificacion</td>
+                                        <td>@item.usu_nombre</td>
+                                        <td>@item.usu_correo</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fa fa-solid fa-pencil-square-o"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newsletter" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="newsletter">
+                        <p>Suscribirse para recibir <strong>INFORMACIÓN</strong></p>
+                        <form>
+                            <input class="input" type="email" placeholder="Ingresa tu correo">
+                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        </form>
+                        <ul class="newsletter-follow">
+                            <li>
+                                <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

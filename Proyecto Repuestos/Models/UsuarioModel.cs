@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Proyecto_Repuestos.Entities;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -44,7 +45,21 @@ namespace Proyecto_Repuestos.Models
                 return 0;
             }
         }
+        public List<UsuarioEnt> ConsultarUsuarios()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ConsultarUsuarios";
+                HttpResponseMessage resp = client.GetAsync(url).Result;
 
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UsuarioEnt>>().Result;
+                }
+
+                return new List<UsuarioEnt>();
+            }
+        }
 
         public string Encrypt(string toEncrypt)
         {
