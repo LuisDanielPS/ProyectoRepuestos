@@ -10,6 +10,7 @@ namespace Proyecto_Repuestos.Controllers
     public class AdminController : Controller
     {
         UsuarioModel modelUsuarios = new UsuarioModel();
+        ProductoModel modelProductos = new ProductoModel();
         [HttpGet]
         public ActionResult PanelAdmin()
         {
@@ -34,7 +35,8 @@ namespace Proyecto_Repuestos.Controllers
         [HttpGet]
         public ActionResult Productos()
         {
-            return View();
+            var datos2 = modelProductos.ConsultarProductos();
+            return View(datos2);
         }
 
 

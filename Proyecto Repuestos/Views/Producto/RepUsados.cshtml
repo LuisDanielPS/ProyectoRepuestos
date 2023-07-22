@@ -11,10 +11,10 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Inicio</a></li>
+                <li><a href="#">Inicio</a></li>
                 <li><a href="#">Originales</a></li>
                 <li><a href="#">Genericos</a></li>
-                <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
+                <li class="active"><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
                 <li><a href="#">Accesorios</a></li>
                 <li><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
             </ul>
@@ -25,7 +25,6 @@
     <!-- /container -->
 </nav>
 <!-- /NAVIGATION -->
-
 <!-- PRODUCTOS -->
 <div class="section">
     <div class="container">
@@ -48,7 +47,7 @@
                                 <h3 class="product-name"><a href="#">@item.producto_descripcion</a></h3>
                                 <h4 class="product-price">$@item.producto_precio</h4>
                                 <div class="product-btns">
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Vista Rápida</span></button>
+                                    <button class="quick-view" data-toggle="modal" data-target="#productModal" data-product-description="@item.producto_descripcion" data-product-price="@item.producto_precio"><i class="fa fa-eye"></i><span class="tooltipp">Vista Rápida</span></button>
                                 </div>
                             </div>
                             <div class="add-to-cart">
@@ -68,29 +67,18 @@
     </div>
 </div>
 <!-- /PRODUCTOS -->
-
-<div id="newsletter" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Suscribirse para recibir <strong>INFORMACIÓN</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Ingresa tu correo">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
-                        </li>
-                    </ul>
-                </div>
+<!-- Infomarcion Producto Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="productModalBody">
+                <!-- Aquí se cargarán los detalles del producto seleccionado -->
             </div>
         </div>
     </div>

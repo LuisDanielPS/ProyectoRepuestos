@@ -47,15 +47,23 @@ namespace Proyecto_Repuestos.Models
         }
         public List<UsuarioEnt> ConsultarUsuarios()
         {
-            using (var client = new HttpClient())
+            try
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ConsultarUsuarios";
-                HttpResponseMessage resp = client.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    return resp.Content.ReadFromJsonAsync<List<UsuarioEnt>>().Result;
+                    string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ConsultarUsuarios";
+                    HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        return resp.Content.ReadFromJsonAsync<List<UsuarioEnt>>().Result;
+                    }
+
+                    return new List<UsuarioEnt>();
                 }
+            }
+            catch (Exception ex)
+            {
 
                 return new List<UsuarioEnt>();
             }
