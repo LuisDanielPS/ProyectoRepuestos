@@ -28,7 +28,7 @@ namespace Proyecto_Repuestos.Models
                 return null;
             }
         }
-
+        
         public int RegistrarUsuario(UsuarioEnt entidad)
         {
             using (var client = new HttpClient())

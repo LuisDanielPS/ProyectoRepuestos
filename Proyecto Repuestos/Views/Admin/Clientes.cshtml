@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Proyecto_Repuestos.Entities.UsuarioEnt>
+﻿@model IEnumerable<Proyecto_Repuestos.Entities.ClienteEnt>
 
 @{
     ViewBag.Title = "PanelAdmin";
@@ -36,8 +36,8 @@
                     <h3 class="title">ADMINISTRACION</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
-                            <li><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
+                            <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
+                            <li class="active"><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
                             <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
                             <li><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
                             <li><a href="@Url.Action("Estados","Admin")">Estados</a></li>
@@ -47,8 +47,8 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-8" style="margin-bottom: 30px;">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevousuario" style="font-weight: bold">
-                            Nuevo Usuario
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevocliente" style="font-weight: bold">
+                            Nuevo Cliente
                         </button>
                     </div>
                 </div>
@@ -59,10 +59,13 @@
                             <table class="table align-middle bg-white" id="tableusuarios">
                                 <thead>
                                     <tr>
-                                        <th>Identificación</th>
+                                        <th>ID</th>
+                                        <th>Cedula</th>
                                         <th>Nombre</th>
-                                        <th>Correo Electrónico</th>
-                                        <th>Rol</th>
+                                        <th>Apellidos</th>
+                                        <th>Correo</th>
+                                        <th>Telefono</th>
+                                        <th>Direccion</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -70,13 +73,20 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>@item.usu_identificacion</td>
-                                            <td>@item.usu_nombre</td>
-                                            <td>@item.usu_correo</td>
-                                            <td>@item.rol_descripcion</td>
+                                            <td>@item.cliente_id</td>
+                                            <td>@item.cliente_cedula</td>
+                                            <td>@item.cliente_nombre</td>
+                                            <td>@item.cliente_apellido</td>
+                                            <td>@item.cliente_correo</td>
+                                            <td>@item.cliente_telefono</td>
+                                            <td>@item.cliente_direccion</td>
                                             <td>
-                                                <button class="btn btn-warning" data-toggle="modal" data-target="#modificausuario"><i class="fa fa-solid fa-pencil-square-o"></i></button>
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <div class="container">
+                                                    <div class="d-flex justify-content-between">
+                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modificacliente"><i class="fa fa-solid fa-pencil-square-o"></i></button>
+                                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
@@ -91,54 +101,37 @@
     </div>
 </div>
 
-<!-- Modal Nuevo Usuario -->
-<div class="modal fade" id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Modal Nuevo Cliente -->
+<div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Usuario</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Cliente</h5>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del usuario">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico del usuario">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" >Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Modificar Usuario -->
-<div class="modal fade" id="modificausuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Usuario</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="identificacion">Identificacion</label>
-                    <input type="number" class="form-control" id="identificacion" disabled min="0">
+                    <label for="cedula">Cedula</label>
+                    <input type="number" class="form-control" id="cedula" placeholder="Ingrese el numero de cedula">
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del usuario">
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre">
                 </div>
                 <div class="form-group">
-                    <label for="correo">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico del usuario">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos">
                 </div>
                 <div class="form-group">
-                    <label for="rol">Rol</label>
-                    <input type="text" class="form-control" id="rol" disabled>
+                    <label for="correo">Correo</label>
+                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electronico">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input type="number" class="form-control" id="telefono" placeholder="Ingrese el numero de telefono">
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
                 </div>
             </div>
             <div class="modal-footer">
@@ -149,6 +142,50 @@
     </div>
 </div>
 
+<!-- Modal Modificar Cliente -->
+<div class="modal fade" id="modificacliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Cliente</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="number" class="form-control" id="id" disabled min="0">
+                </div>
+                <div class="form-group">
+                    <label for="cedula">Cedula</label>
+                    <input type="number" class="form-control" id="cedula" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" class="form-control" id="correo">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input type="number" class="form-control" id="telefono" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" class="form-control" id="direccion">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {

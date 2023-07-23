@@ -11,14 +11,9 @@ namespace Proyecto_Repuestos.Controllers
     {
         UsuarioModel modelUsuarios = new UsuarioModel();
         ProductoModel modelProductos = new ProductoModel();
+        ClienteModel modelClientes = new ClienteModel();
         [HttpGet]
         public ActionResult PanelAdmin()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Clientes()
         {
             return View();
         }
@@ -31,6 +26,12 @@ namespace Proyecto_Repuestos.Controllers
             return View(datos);
         }
 
+        [HttpGet]
+        public ActionResult Clientes()
+        {
+            var datos3 = modelClientes.ConsultarClientes();
+            return View(datos3);
+        }
 
         [HttpGet]
         public ActionResult Productos()
