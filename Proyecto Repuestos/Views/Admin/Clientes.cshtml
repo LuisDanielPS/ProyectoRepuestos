@@ -3,105 +3,86 @@
 @{
     ViewBag.Title = "PanelAdmin";
 }
-<!-- NAVIGATION -->
 <nav id="navigation">
-    <!-- container -->
+
     <div class="container">
-        <!-- responsive-nav -->
         <div id="responsive-nav">
-            <!-- NAV -->
+
             <ul class="main-nav nav navbar-nav">
                 <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
                 <li><a href="#">Originales</a></li>
                 <li><a href="#">Genericos</a></li>
                 <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
                 <li><a href="#">Accesorios</a></li>
-                <li class="active"><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
+                <li class="active"><a style=" color: red;" href="@Url.Action("Usuarios","Admin")">Panel Admin</a></li>
             </ul>
-            <!-- /NAV -->
         </div>
-        <!-- /responsive-nav -->
     </div>
-    <!-- /container -->
 </nav>
-<!-- /NAVIGATION -->
-
 <div class="section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-
-
-                <div class="section-title">
-                    <h3 class="title">ADMINISTRACION</h3>
-                    <div class="section-nav">
-                        <ul class="section-tab-nav tab-nav">
-                            <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
-                            <li class="active"><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
-                            <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
-                            <li><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
-                            <li><a href="@Url.Action("Estados","Admin")">Estados</a></li>
-                            <li><a href="@Url.Action("Roles","Admin")">Roles</a></li>
-                        </ul>
-                    </div>
+    <div class="container" style="margin-top:-30px">
+        <div class="col-md-12">
+            <div class="section-title">
+                <div class="section-nav">
+                    <ul class="section-tab-nav tab-nav">
+                        <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
+                        <li class="active"><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
+                        <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
+                        <li><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
+                        <li><a href="@Url.Action("Roles","Admin")">Roles</a></li>
+                    </ul>
                 </div>
+            </div>
+            <br><br>
+            <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8" style="margin-bottom: 30px;">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevocliente" style="font-weight: bold">
-                            Nuevo Cliente
-                        </button>
+                    <div class="col-lg-12">
+                        <table class="table align-middle bg-white" id="tableusuarios">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Cedula</th>
+                                    <th style="text-align:center">Nombre</th>
+                                    <th style="text-align:center">Apellidos</th>
+                                    <th style="text-align:center">Correo Electrónico</th>
+                                    <th style="text-align:center">Telefono</th>
+                                    <th style="text-align:center">Direccion</th>
+                                    <th style="text-align:center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.cliente_cedula</td>
+                                        <td>@item.cliente_nombre</td>
+                                        <td>@item.cliente_apellido</td>
+                                        <td>@item.cliente_correo</td>
+                                        <td>@item.cliente_telefono</td>
+                                        <td>@item.cliente_direccion</td>
+                                        <td>
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#modificacliente"><i class="fa fa-solid fa-pencil-square-o"></i></button>
+                                            <button class="btn btn-primary" data-target="#cambiarestado"><i class="fas fa-user-cog"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="container">
-
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <table class="table align-middle bg-white" id="tableusuarios">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Cedula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellidos</th>
-                                        <th>Correo</th>
-                                        <th>Telefono</th>
-                                        <th>Direccion</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@item.cliente_id</td>
-                                            <td>@item.cliente_cedula</td>
-                                            <td>@item.cliente_nombre</td>
-                                            <td>@item.cliente_apellido</td>
-                                            <td>@item.cliente_correo</td>
-                                            <td>@item.cliente_telefono</td>
-                                            <td>@item.cliente_direccion</td>
-                                            <td>
-                                                <div class="container">
-                                                    <div class="d-flex justify-content-between">
-                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modificacliente"><i class="fa fa-solid fa-pencil-square-o"></i></button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
+            </div>
+            <br><br>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevocliente" style="font-weight: bold">
+                        Nuevo Cliente
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Nuevo Cliente -->
 <div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -136,13 +117,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" >Confirmar</button>
+                <button type="button" class="btn btn-success">Confirmar</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Modificar Cliente -->
 <div class="modal fade" id="modificacliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

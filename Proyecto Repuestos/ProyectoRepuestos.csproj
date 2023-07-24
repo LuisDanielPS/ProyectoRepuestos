@@ -157,12 +157,16 @@
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
+    <Compile Include="Entities\ProveedoresEnt.cs" />
+    <Compile Include="Entities\RolesEnt.cs" />
     <Compile Include="Entities\UsuarioEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\ProveedorModel.cs" />
+    <Compile Include="Models\RolesModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -248,6 +252,8 @@
     <Content Include="Views\Admin\Usuarios.cshtml" />
     <Content Include="Views\Admin\Productos.cshtml" />
     <Content Include="Views\Admin\Clientes.cshtml" />
+    <Content Include="Views\Admin\Proveedores.cshtml" />
+    <Content Include="Views\Admin\Roles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

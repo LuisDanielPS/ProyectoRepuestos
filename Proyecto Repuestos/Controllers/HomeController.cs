@@ -33,6 +33,7 @@ namespace Proyecto_Repuestos.Controllers
                 {
                     Session["NombreUsuario"] = resp.usu_nombre;
                     Session["RolUsuario"] = resp.rol_descripcion;
+                    Session["idRolUsuario"] = resp.rol_id;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -52,7 +53,6 @@ namespace Proyecto_Repuestos.Controllers
         {
             return View();
         }
-
 
 
         [HttpPost]
