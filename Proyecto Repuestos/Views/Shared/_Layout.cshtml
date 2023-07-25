@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Inicio</title>
-
+   
     <link type="text/css" rel="stylesheet" href="~/WebStyles/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick.css" />
     <link type="text/css" rel="stylesheet" href="~/WebStyles/css/slick-theme.css" />
@@ -18,7 +18,7 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
- 
+
 
 </head>
 <body>
@@ -35,6 +35,12 @@
                     {
                         <li><a href="@Url.Action("CerrarSesion","Home")"><i class="fa fa-user-o"></i> Cerrar Sesion</a></li>
                         <li style="color:white"><i class="fa fa-user-o"></i> Usuario: @Session["NombreUsuario"]</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Opciones</a>
+                            <ul class="dropdown-menu" style="background-color: #333;">
+                                <li><a  style="background-color: transparent;"href="@Url.Action("Cambiar","Home")">Recuperar Contraseña</a></li>
+                            </ul>
+                        </li>
                     }
                     else
                     {

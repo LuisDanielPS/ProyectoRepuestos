@@ -16,7 +16,33 @@
 </head>
 <body style="background-color: whitesmoke">
     <header>
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li><a href="#"><i class="fa fa-phone"></i> 2444-0542</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i> repuestostotal@gmail.com</a></li>
+                    <li><a href="https://goo.gl/maps/VP424apG2Ypz8cjd8"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
+                </ul>
+                <ul class="header-links pull-right">
+                    @if (Session["NombreUsuario"] != null)
+                    {
+                        <li><a href="@Url.Action("CerrarSesion","Home")"><i class="fa fa-user-o"></i> Cerrar Sesion</a></li>
+                        <li style="color:white"><i class="fa fa-user-o"></i> Usuario: @Session["NombreUsuario"]</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Opciones</a>
+                            <ul class="dropdown-menu" style="background-color: #333;">
+                                <li><a style="background-color: transparent;" href="@Url.Action("Cambiar","Home")">Recuperar Contraseña</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Login","Home")"><i class="fa fa-user-o"></i> Iniciar Sesión</a></li>
+                    }
 
+                </ul>
+            </div>
+        </div>
         <div id="header">
             <div class="container">
                 <div class="row">
@@ -25,60 +51,6 @@
                             <a href="@Url.Action("Index","Home")" class="logo">
                                 <img src="~/WebStyles/img/logo.png" alt="">
                             </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="header-search">
-
-                        </div>
-                    </div>
-                    <div class="col-md-3 clearfix">
-                        <div class="header-ctn">
-                            <div class="dropdown">
-
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="~/WebStyles/img/llantas.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
-
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="~/WebStyles/img/aro.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">Nombre del producto</a></h3>
-                                                <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="cart-summary">
-                                        <small>3 Item(s) seleccionados</small>
-                                        <h5>SUBTOTAL: $2940.00</h5>
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="#">Ver Carrito</a>
-                                        <a href="#">Pagar  <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Cart -->
-                            <!-- Menu Toogle -->
-                            <div class="menu-toggle">
-                                <a href="#">
-                                    <i class="fa fa-bars"></i>
-                                    <span>Menu</span>
-                                </a>
-                            </div>
-                            <!-- /Menu Toogle -->
                         </div>
                     </div>
                     <!-- /ACCOUNT -->
@@ -148,8 +120,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                                Copyright &copy;
-                                <script>document.write(new Date().getFullYear());</script> All rights reserved <a></a>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <a></a>
                         </div>
                     </div>
                 </div>
@@ -157,10 +129,11 @@
         </footer>
 
     </main>
+    <script src="https://kit.fontawesome.com/1720a7cd30.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/additional-methods.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation.unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    </bodyid>
+</body>
 </html>

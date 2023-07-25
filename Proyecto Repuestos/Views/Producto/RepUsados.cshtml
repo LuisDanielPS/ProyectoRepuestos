@@ -11,11 +11,11 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Originales</a></li>
-                <li><a href="#">Genericos</a></li>
+                <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
+                <li><a href="@Url.Action("RepOriginales","Producto")">Originales</a></li>
+                <li><a href="@Url.Action("RepGenricos","Producto")">Genericos</a></li>
                 <li class="active"><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
-                <li><a href="#">Accesorios</a></li>
+                <li><a href="@Url.Action("Accesorios","Producto")">Accesorios</a></li>
                 <li><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
             </ul>
             <!-- /NAV -->

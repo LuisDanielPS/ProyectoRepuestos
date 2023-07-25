@@ -1,0 +1,44 @@
+﻿@model Proyecto_Repuestos.Entities.UsuarioEnt
+@{
+    ViewBag.Title = "Recuperar";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+@using (Html.BeginForm("RecuperarContrasenna", "Home", FormMethod.Post))
+{
+  <div class="container max-vh-100 min-vh-50">
+      <div class="row justify-content-center">
+          <div class="col-md-6 mb-5">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                  <div class="card-header d-flex align-items-center">
+                      <a href="@Url.Action("Login","Home")" class="cta-btn" style="font-size: 24px; margin-right: 10px; margin-bottom: 10px"><i class="fa fa-arrow-left"></i></a>
+                      <h3 class="text-center font-weight-light flex-fill"><b>Recuperacion de Contraseña</b></h3>
+                  </div>
+
+                  @if (ViewBag.MsjPantalla != null)
+                  {
+                      <div style="text-align:center" class="alert alert-danger" role="alert">
+                          <b>@ViewBag.MsjPantalla</b>
+                      </div>
+                  }
+
+                  <div class="card-body">
+                      <div class="form-group">
+                          <label for="inputEmail">Correo electronico</label>
+                          @Html.TextBoxFor(m => m.usu_correo, new { @type = "email", @placeholder = "Ingrese su correo electronico", @class = "form-control", required = "required" })
+
+                      </div>
+
+                  </div>
+                  <div class="card-footer">
+                      <div class="d-flex align-items-center justify-content-lg-end mt-4 mb-0">
+                          <button type="submit" class="btn btn-primary" id="btnIniciarSesion">Enviar correo</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+}
+
+

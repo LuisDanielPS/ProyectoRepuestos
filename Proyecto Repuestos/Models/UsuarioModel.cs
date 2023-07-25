@@ -69,6 +69,40 @@ namespace Proyecto_Repuestos.Models
             }
         }
 
+        public int CambiarContrasenna(UsuarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/CambiarContrasenna";
+                JsonContent body = JsonContent.Create(entidad); //Serializar
+                HttpResponseMessage resp = client.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+        public bool RecuperarContrasenna(UsuarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RecuperarContrasenia";
+                JsonContent body = JsonContent.Create(entidad); //Serializar
+                HttpResponseMessage resp = client.PostAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<bool>().Result;
+                }
+
+                return false;
+            }
+        }
+
         public string Encrypt(string toEncrypt)
         {
             byte[] keyArray;

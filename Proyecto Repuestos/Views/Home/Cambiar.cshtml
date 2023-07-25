@@ -1,0 +1,52 @@
+﻿@model Proyecto_Repuestos.Entities.UsuarioEnt
+@{
+    ViewBag.Title = "Cambiar";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+@using (Html.BeginForm("CambiarContrasenna", "Home", FormMethod.Post))
+{
+  <div class="container max-vh-100 min-vh-50">
+      <div class="row justify-content-center">
+          <div class="col-md-6 mb-5">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                  <div class="card-header d-flex align-items-center">
+                      <a href="@Url.Action("Index","Home")" class="cta-btn" style="font-size: 24px; margin-right: 10px; margin-bottom: 10px"><i class="fa fa-arrow-left"></i></a>
+                      <h3 class="text-center font-weight-light flex-fill"><b>Cambiar Contraseña</b></h3>
+                  </div>
+
+                  @if (ViewBag.MsjPantalla != null)
+                  {
+                      <div style="text-align:center" class="alert alert-danger" role="alert">
+                          <b>@ViewBag.MsjPantalla</b>
+                      </div>
+                  }
+
+                  <div class="card-body">
+                      <div class="form-group">
+                          <label for="inputPassword">Contraseña actual </label>
+                          @Html.TextBoxFor(m => m.usu_clave, new { @type = "password", @placeholder = "********", @class = "form-control", required = "required" })
+
+                      </div>
+                      <div class="form-group">
+                          <label for="inputPassword">Contraseña Nueva </label>
+                          @Html.PasswordFor(m => m.ContrasennaNueva, new { @class = "form-control", @placeholder = "********", required = "required" })
+                      </div>
+                      <div class="form-group">
+                          <label for="inputPassword">Confirmar Contraseña</label>
+                          @Html.PasswordFor(m => m.ConfirmarContrasenna, new { @class = "form-control", @placeholder = "********", required = "required" })
+                      </div>
+
+                  </div>
+                  <div class="card-footer">
+                      <div class="d-flex align-items-center justify-content-lg-end mt-4 mb-0">
+                          <button type="submit" class="btn btn-primary" id="btnIniciarSesion">Actualizar contraseña</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+}
+
+
