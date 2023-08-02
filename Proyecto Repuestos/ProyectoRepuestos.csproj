@@ -155,6 +155,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Entities\CategoriaEnt.cs" />
+    <Compile Include="Entities\EstadoEnt.cs" />
     <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\ProveedoresEnt.cs" />
@@ -216,6 +218,7 @@
     <Content Include="WebStyles\js\bootstrap.min.js" />
     <Content Include="WebStyles\js\jquery.min.js" />
     <Content Include="WebStyles\js\jquery.zoom.min.js" />
+    <Content Include="WebStyles\js\DatatableScripts.js" />
     <Content Include="WebStyles\js\main.js" />
     <Content Include="WebStyles\js\nouislider.min.js" />
     <Content Include="WebStyles\js\slick.min.js" />

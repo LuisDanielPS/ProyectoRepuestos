@@ -4,6 +4,10 @@
     ViewBag.Title = "PanelAdmin";
 }
 
+<link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css
+" rel="stylesheet">
+
 <nav id="navigation">
     <div class="container">
         <div id="responsive-nav">
@@ -12,7 +16,6 @@
                 <li><a href="@Url.Action("RepOriginales","Producto")">Originales</a></li>
                 <li><a href="@Url.Action("RepGenricos","Producto")">Genericos</a></li>
                 <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
-                <li><a href="@Url.Action("Accesorios","Producto")">Accesorios</a></li>
                 <li class="active"><a style=" color: red;" href="@Url.Action("PanelAdmin","Admin")">Panel Admin</a></li>
             </ul>
         </div>
@@ -36,12 +39,13 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <table class="table align-middle bg-white" id="tableusuarios">
+                        <table class="table align-middle bg-white dataTable" id="tableusuarios">
                             <thead>
                                 <tr>
                                     <th style="text-align:center">Descripcion</th>
                                     <th style="text-align:center">Estado</th>
                                     <th style="text-align:center">Existencias</th>
+                                    <th style="text-align:center">Categoria</th>
                                     <th style="text-align:center">Precio</th>
                                     <th style="text-align:center">Acciones</th>
                                 </tr>
@@ -51,16 +55,54 @@
                                 {
                                     <tr>
                                         <td>@item.producto_descripcion</td>
-                                        <td>@item.estado_descripcion</td>
+
+                                        @if (item.estado_id == 1)
+                                        {
+                                            <td>
+                                                <button style="background-color: #28a745; cursor: default; color: white; border-radius: 20px; padding: 3px 10px; border-color: transparent">
+                                                    Disponible
+                                                </button>
+                                            </td>
+                                        }
+                                        else if (item.estado_id == 2)
+                                        {
+                                            <td>
+                                                <button style="background-color: #D52F0A; cursor: default; color: white; border-radius: 20px; padding: 3px 10px; border-color: transparent ">
+                                                    Agotado
+                                                </button>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <button style="background-color: #D6960E; cursor: default; color: white; border-radius: 20px; padding: 3px 10px; border-color: transparent">
+                                                    En camino
+                                                </button>
+                                            </td>
+                                        }
                                         <td>@item.producto_existencias</td>
+                                        <td>@item.categoria_descripcion</td>
                                         <td>@item.producto_precio</td>
                                         <td>
-                                            <button class="btn btn-warning" data-toggle="modal" data-target="#modificaproducto"><i class="fa fa-solid fa-pencil-square-o"></i></button>
+                                            <button class="btn btn-warning btn-modificar-producto"
+                                                    data-toggle="modal"
+                                                    data-target="#modificaproducto"
+                                                    data-producto-id="@item.producto_id"
+                                                    data-producto-descripcion="@item.producto_descripcion"
+                                                    data-producto-estado_descripcion="@item.estado_descripcion"
+                                                    data-producto-existencias="@item.producto_existencias"
+                                                    data-producto-precio="@item.producto_precio"
+                                                    data-producto-estado_id="@item.estado_id"
+                                                    data-producto-categoria_id="@item.categoria_id"
+                                                    data-producto-categoria_descripcion="@item.categoria_descripcion">
+                                                <i class="fa fa-solid fa-pencil-square-o"></i>
+                                            </button>
                                             <button class="btn btn-primary" data-target="#cambiarestado"><i class="fas fa-user-cog"></i></button>
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 }
+
                             </tbody>
                         </table>
                     </div>
@@ -77,39 +119,11 @@
         </div>
     </div>
 </div>
-<!-- Modal Nuevo Producto -->
-<div class="modal fade" id="nuevoproducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Producto</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese la descripcion del producto">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Cantidad:</label>
-                    <input min="0" type="number" class="form-control" id="correo" placeholder="Ingrese la cantidad">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Precio:</label>
-                    <input type="number" min="0" class="form-control" id="precio" placeholder="Ingrese el precio del producto">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" onclick="guardarUsuario()">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal Modificar Producto -->
 <div class="modal fade" id="modificaproducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <!-- Use a form to wrap the modal content -->
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Producto</h5>
             </div>
@@ -123,12 +137,18 @@
                     <input type="text" class="form-control" id="descripcion">
                 </div>
                 <div class="form-group">
-                    <label for="correo">Estado</label>
-                    <input type="text" class="form-control" id="estado" disabled>
+                    <label for="estado">Estado</label>
+                    <select class="form-control" id="estado"></select>
+                    <input type="hidden" class="form-control" id="estadoid" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" id="categoria"></select>
+                    <input type="hidden" class="form-control" id="categoriaid" disabled>
                 </div>
                 <div class="form-group">
                     <label for="existencias">Existencias</label>
-                    <input type="number" class="form-control" id="existencias" disabled>
+                    <input type="number" class="form-control" id="existencias">
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio</label>
@@ -136,38 +156,144 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" onclick="guardarUsuario()">Confirmar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnGuardar">Confirmar</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnGuardar").click(function () {
+            var producto_id = $("#id").val();
+            var producto_descripcion = $("#descripcion").val();
+            var producto_existencias = $("#existencias").val();
+            var producto_precio = $("#precio").val();
+
+            var select = document.getElementById('categoria');
+            var select2 = document.getElementById('estado');
+            var selectedCategoryValue = select.value;
+            var selectedEstadoValue = select2.value;
+            var selectedCategoryId = $('#categoria option:selected').data('categoria-id');
+            var selectedEstadoId = $('#estado option:selected').data('estado-id');
+
+
+            var entidad = {
+                producto_id: producto_id,
+                producto_descripcion: producto_descripcion,
+                producto_existencias: producto_existencias,
+                producto_precio: producto_precio,
+                categoria_id: selectedCategoryId,
+                estado_id: selectedEstadoId
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Producto/EditarProductoAPI",
+                data: entidad,
+                success: function (result) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'PRODUCTO ACTUALIZADO EXITOSAMENTE',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        width: 400
+                    });
+                    setTimeout(function () {
+                        window.location.href = '@Url.Action("Productos","Admin")';
+                    }, 1500);
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Error al actualizar el producto!'
+                    });
+                }
+            });
+
+        });
+
+    });
+</script>
 
 
 <script>
+
     $(document).ready(function () {
-        $('#tableusuarios').DataTable({
-            ordering: false,
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                }
-            }
+        $('.btn-modificar-producto').on('click', function () {
+            var productoId = $(this).data('producto-id');
+            var descripcion = $(this).data('producto-descripcion');
+            var existencias = $(this).data('producto-existencias');
+            var estadoid = $(this).data('producto-estado_id');
+            var estadodescripcion = $(this).data('producto-estado_descripcion');
+            var categoriaid = $(this).data('producto-categoria_id');
+            var categoriadescripcion = $(this).data('producto-categoria_descripcion');
+            var precioStr = $(this).data('producto-precio').toString();
+            var precio = parseFloat(precioStr);
+
+            $('#id').val(productoId);
+            $('#descripcion').val(descripcion);
+            $('#existencias').val(existencias);
+            $('#precio').val(precio);
+            $('#estadoid').val(estadoid);
+            $('#categoriaid').val(categoriaid);
+            $('#categoria').val(categoriadescripcion);
+
+            $.ajax({
+                url: '/Producto/CargarCategorias',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var select = $('#categoria');
+                    select.empty();
+
+                    $.each(data, function (index, category) {
+
+                        var option = $('<option>').text(category.categoria_descripcion).val(category.categoria_descripcion);
+
+                        option.attr('data-categoria-id', category.categoria_id);
+
+                        select.append(option);
+
+                        if (category.categoria_descripcion === categoriadescripcion) {
+                            option.prop('selected', true);
+                        }
+                    });
+                },
+            });
+
+            $.ajax({
+                url: '/Producto/CargarEstados',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var select = $('#estado');
+                    select.empty();
+
+                    $.each(data, function (index, estado) {
+                        var option = $('<option>').text(estado.estado_descripcion).val(estado.estado_descripcion);
+
+                        option.attr('data-estado-id', estado.estado_id);
+
+                        select.append(option);
+
+                        if (estado.estado_descripcion === estadodescripcion) {
+                            option.prop('selected', true);
+                        }
+                    });
+                },
+            });
+
+
         });
     });
 </script>
+<script src="~/WebStyles/js/DatatableScripts.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js
+"></script>
