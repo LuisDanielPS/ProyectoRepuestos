@@ -20,6 +20,20 @@ namespace Proyecto_Repuestos.Controllers
             return View(datos);
         }
 
+        [HttpGet]
+        public ActionResult RepGenericos()
+        {
+            var datos = modelProductos.ConsultarProductos();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult RepOriginales()
+        {
+            var datos = modelProductos.ConsultarProductos();
+            return View(datos);
+        }
+
         public ActionResult CargarCategorias()
         {
             var datos = modelProductos.CargarCategorias();

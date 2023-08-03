@@ -259,6 +259,8 @@
     <Content Include="Views\Admin\Roles.cshtml" />
     <Content Include="Views\Home\Cambiar.cshtml" />
     <Content Include="Views\Home\Recuperar.cshtml" />
+    <Content Include="Views\Producto\RepGenericos.cshtml" />
+    <Content Include="Views\Producto\RepOriginales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

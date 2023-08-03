@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Proyecto_Repuestos.Entities.ProductoEnt>
 
 @{
-    ViewBag.Title = "RepUsados";
+    ViewBag.Title = "RepGenericos";
 }
 <!-- NAVIGATION -->
 <nav id="navigation">
@@ -27,12 +27,12 @@
 <!-- PRODUCTOS -->
 <div class="section">
     <div class="container">
-        @if (Model.Any(item => item.categoria_id == 1))
+        @if (Model.Any(item => item.categoria_id == 3))
         {
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    if (item.categoria_id == 1)
+                    if (item.categoria_id == 3)
                     {
                         <div class="col-md-4">
                             <div class="product">
@@ -69,7 +69,7 @@
         else
         {
             <div style="text-align:center" class="alert alert-danger" role="alert">
-                <b>No hay productos usados disponibles</b>
+                <b>No hay productos genericos disponibles</b>
             </div>
         }
     </div>
