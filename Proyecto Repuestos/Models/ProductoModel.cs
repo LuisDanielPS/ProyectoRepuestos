@@ -70,7 +70,45 @@ namespace Proyecto_Repuestos.Models
                 return new List<EstadoEnt>();
             }
         }
-        public int EnviarSolicitudEditarProductoAPI(ProductoEnt entidad)
+
+        public int EliminaProducto(int producto_id)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + $"api/EliminarProducto?producto_id={producto_id}";
+
+                HttpResponseMessage resp = client.DeleteAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+
+        public int RegistrarProducto(ProductoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RegistrarProducto";
+                JsonContent body = JsonContent.Create(entidad); //Serializar
+                HttpResponseMessage resp = client.PostAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+        public int EditarProductoAPI(ProductoEnt entidad)
             {
                 using (var client = new HttpClient())
                 {

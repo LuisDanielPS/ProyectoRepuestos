@@ -30,7 +30,7 @@
         @if (Model.Any())
         {
             <div class="row">
-
+              
                 @foreach (var item in Model)
                 {
                     <div class="col-md-4">
@@ -38,7 +38,10 @@
                             <div class="product-img" style="max-height: 150px;">
                                 <img src="~/WebStyles/img/aro.png" alt="">
                                 <div class="product-label">
-                                    <span class="new">USADO</span>
+                                    @if (item.estado_id == 2)
+                                    {
+                                        <span class="new">AGOTADO</span>
+                                    }
                                 </div>
                             </div>
                             <div class="product-body">
@@ -49,9 +52,13 @@
                                     <button class="quick-view" data-toggle="modal" data-target="#productModal" data-product-description="@item.producto_descripcion" data-product-price="@item.producto_precio"><i class="fa fa-eye"></i><span class="tooltipp">Vista Rápida</span></button>
                                 </div>
                             </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                            </div>
+                            @if (item.estado_id == 1)
+                            {
+                                <div class="add-to-cart">
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
+                                </div>
+                            }
+
                         </div>
                     </div>
                 }
