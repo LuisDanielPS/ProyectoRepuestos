@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -216,12 +217,8 @@
     <Content Include="WebStyles\img\retrovisor.png" />
     <Content Include="WebStyles\img\rotulas.png" />
     <Content Include="WebStyles\js\bootstrap.min.js" />
-    <Content Include="WebStyles\js\jquery.min.js" />
-    <Content Include="WebStyles\js\jquery.zoom.min.js" />
+    <Content Include="WebStyles\js\ScriptsModales.js" />
     <Content Include="WebStyles\js\DatatableScripts.js" />
-    <Content Include="WebStyles\js\main.js" />
-    <Content Include="WebStyles\js\nouislider.min.js" />
-    <Content Include="WebStyles\js\slick.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -264,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>

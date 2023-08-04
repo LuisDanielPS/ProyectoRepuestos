@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "PanelAdmin";
 }
+
 <nav id="navigation">
 
     <div class="container">
@@ -44,7 +45,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <table class="table align-middle bg-white ml-auto" id="tableusuarios">
+                        <table class="table align-middle bg-white ml-auto" id="clientestable">
                             <thead>
                                 <tr>
                                     <th style="text-align:center">Cedula</th>
@@ -67,9 +68,22 @@
                                         <td>@item.cliente_telefono</td>
                                         <td>@item.cliente_direccion</td>
                                         <td>
-                                            <button class="btn btn-warning" data-toggle="modal" data-target="#modificacliente"><i class="fa fa-solid fa-pencil-square-o"></i></button>
+                                            <button class="btn btn-warning btn-modificar-cliente"
+                                                    data-toggle="modal"
+                                                    data-target="#modificacliente"
+                                                    data-cliente-id="@item.cliente_id"
+                                                    data-cliente-cedula="@item.cliente_cedula"
+                                                    data-cliente-nombre="@item.cliente_nombre"
+                                                    data-cliente-apellido="@item.cliente_apellido"
+                                                    data-cliente-correo="@item.cliente_correo"
+                                                    data-cliente-telefono="@item.cliente_telefono"
+                                                    data-cliente-direccion="@item.cliente_direccion">
+                                                <i class="fa fa-solid fa-pencil-square-o"></i>
+                                            </button>
                                             <button class="btn btn-primary" data-target="#cambiarestado"><i class="fas fa-user-cog"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-danger btnborracliente" data-cliente-id="@item.cliente_id">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 }
@@ -85,114 +99,95 @@
     </div>
 </div>
 
-<div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Modal Modificar Cliente -->
+<div class="modal fade" id="modificacliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Cliente</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="cedula">Cedula</label>
-                    <input type="number" class="form-control" id="cedula" placeholder="Ingrese el numero de cedula">
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre">
-                </div>
-                <div class="form-group">
-                    <label for="apellidos">Apellidos</label>
-                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electronico">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Telefono</label>
-                    <input type="number" class="form-control" id="telefono" placeholder="Ingrese el numero de telefono">
-                </div>
-                <div class="form-group">
-                    <label for="direccion">Direccion</label>
-                    <input type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="modificacliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Cliente</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Producto</h5>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="id">ID</label>
-                    <input type="number" class="form-control" id="id" disabled min="0">
+                    <input type="text" class="form-control" id="id" disabled>
                 </div>
                 <div class="form-group">
                     <label for="cedula">Cedula</label>
-                    <input type="number" class="form-control" id="cedula" min="0">
+                    <input type="number" class="form-control" id="cedula" required min="0">
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre">
+                    <input type="text" class="form-control" id="nombre" required>
                 </div>
                 <div class="form-group">
                     <label for="apellidos">Apellidos</label>
-                    <input type="text" class="form-control" id="apellidos">
+                    <input type="text" class="form-control" id="apellidos" required>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo">
+                    <input type="text" class="form-control" id="correo" required>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Telefono</label>
-                    <input type="number" class="form-control" id="telefono" min="0">
+                    <input type="number" class="form-control" id="telefono" min="0" required>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Direccion</label>
-                    <input type="text" class="form-control" id="direccion">
+                    <input type="text" class="form-control" id="direccion" min="0" required>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnGuardarCliente">Confirmar</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#tableusuarios').DataTable({
-            ordering: false,
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                }
-            }
-        });
-    });
-</script>
+<!-- Modal Nuevo Cliente -->
+<div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Producto</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="cedula">Cedula:</label>
+                    <input type="number" min="0" class="form-control" id="cedulanuevo" placeholder="Ingrese la cedula del cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombrenuevo" placeholder="Ingrese el nombre del cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellidos:</label>
+                    <input type="text"  class="form-control" id="apellidonuevo" placeholder="Ingrese los apellidos del cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo:</label>
+                    <input type="email" class="form-control" id="correonuevo" placeholder="Ingrese el correo del cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono:</label>
+                    <input type="number" min="0" class="form-control" id="telefononuevo" placeholder="Ingrese el telefono del cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion:</label>
+                    <input type="text" class="form-control" id="direccionnuevo" placeholder="Ingrese la direccion del cliente" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btncreacliente">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="urlClientes" value="@Url.Action("Clientes", "Admin")">
+
+

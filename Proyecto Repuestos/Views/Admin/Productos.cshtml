@@ -4,8 +4,6 @@
     ViewBag.Title = "PanelAdmin";
 }
 
-
-
 <nav id="navigation">
     <div class="container">
         <div id="responsive-nav">
@@ -36,7 +34,7 @@
             <br><br>
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevoproducto"  id="btnNuevoProducto" style="font-weight: bold;">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevoproducto" id="btnNuevoProducto" style="font-weight: bold;">
                         Nuevo Producto
                     </button>
                 </div>
@@ -45,7 +43,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <table class="table align-middle bg-white dataTable" id="tableusuarios">
+                        <table class="table align-middle bg-white dataTable" id="productostable">
                             <thead>
                                 <tr>
                                     <th style="text-align:center">Descripcion</th>
@@ -161,7 +159,7 @@
             <div class="modal-footer">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" id="btnGuardar">Confirmar</button>
+                    <button type="button" class="btn btn-success" id="btnGuardarProducto">Confirmar</button>
                 </div>
             </div>
         </div>
@@ -169,7 +167,7 @@
 </div>
 
 <!-- Modal Nuevo Producto -->
-<div class="modal fade" id="nuevoproducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="nuevoproducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -178,20 +176,20 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="descripcion">Descripcion:</label>
-                    <input type="text" class="form-control" id="descripcionnuevo" placeholder="Ingrese la descripcion del producto">
+                    <input type="text" class="form-control" id="descripcionnuevo" placeholder="Ingrese la descripcion del producto" required>
                 </div>
                 <div class="form-group">
                     <label for="cantidad">Cantidad:</label>
-                    <input min="1" type="number" class="form-control" id="cantidadnuevo" placeholder="Ingrese la cantidad">
+                    <input min="1" type="number" class="form-control" id="cantidadnuevo" placeholder="Ingrese la cantidad" required >
                 </div>
                 <div class="form-group">
                     <label for="categoria2">Categoria</label>
-                    <select class="form-control" id="categoria2"></select>
+                    <select required class="form-control" id="categoria2"></select>
                     <input type="hidden" class="form-control" id="categoriaid" disabled>
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio:</label>
-                    <input type="number" min="0" class="form-control" id="precionuevo" placeholder="Ingrese el precio del producto">
+                    <input type="number" min="0" class="form-control" id="precionuevo" placeholder="Ingrese el precio del producto" required>
                 </div>
 
             </div>
@@ -202,244 +200,5 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $("#btnGuardar").click(function () {
-            var producto_id = $("#id").val();
-            var producto_descripcion = $("#descripcion").val();
-            var producto_existencias = $("#existencias").val();
-            var producto_precio = $("#precio").val();
 
-            var select = document.getElementById('categoria');
-            var select2 = document.getElementById('estado');
-            var selectedCategoryValue = select.value;
-            var selectedEstadoValue = select2.value;
-            var selectedCategoryId = $('#categoria option:selected').data('categoria-id');
-            var selectedEstadoId = $('#estado option:selected').data('estado-id');
-
-
-            var entidad = {
-                producto_id: producto_id,
-                producto_descripcion: producto_descripcion,
-                producto_existencias: producto_existencias,
-                producto_precio: producto_precio,
-                categoria_id: selectedCategoryId,
-                estado_id: selectedEstadoId
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/Producto/EditarProductoAPI",
-                data: entidad,
-                success: function (result) {
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'PRODUCTO ACTUALIZADO EXITOSAMENTE',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        width: 400
-                    });
-                    setTimeout(function () {
-                        window.location.href = '@Url.Action("Productos","Admin")';
-                    }, 1500);
-                },
-                error: function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Error al actualizar el producto!'
-                    });
-                }
-            });
-
-        });
-
-        $("#btncreaproducto").click(function () {
-            var producto_descripcion = $("#descripcionnuevo").val();
-            var producto_existencias = $("#cantidadnuevo").val();
-            var producto_precio = $("#precionuevo").val();
-            var selectedCategoryId = $('#categoria2 option:selected').val();
-
-            var entidadnueva = {
-                producto_descripcion: producto_descripcion,
-                producto_existencias: producto_existencias,
-                producto_precio: producto_precio,
-                categoria_id: selectedCategoryId,
-                estado_id : 1
-            };
-
-            console.log(entidadnueva);
-
-            $.ajax({
-                type: "POST",
-                url: "/Producto/CrearProducto",
-                data: entidadnueva,
-                success: function (result) {
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'PRODUCTO CREADO EXITOSAMENTE',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        width: 400
-                    });
-                    setTimeout(function () {
-                        window.location.href = '@Url.Action("Productos","Admin")';
-                    }, 1500);
-                },
-                error: function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Error al crear el producto!'
-                    });
-                },
-            });
-
-        });
-
-
-
-
-
-    });
-    $(document).ready(function () {
-        $(".btnborraproducto").click(function () {
-            var producto_id = $(this).data("producto-id");
-
-            Swal.fire({
-                title: '¿Está seguro que desea borrar el producto?',
-                text: "¡No se pueden revertir los cambios!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Producto/EliminaProducto',
-                        data: { producto_id: producto_id },
-                        success: function (response) {
-                            Swal.fire({
-                                position: 'top-center',
-                                icon: 'success',
-                                title: 'PRODUCTO ELIMINADO EXITOSAMENTE',
-                                showConfirmButton: false,
-                                timer: 1500,
-                                width: 400
-                            });
-                            setTimeout(function () {
-                        window.location.href = '@Url.Action("Productos","Admin")';
-                    }, 1500);
-                        },
-                        error: function (error) {
-                            Swal.fire(
-                                'Error',
-                                'Ocurrió un error al eliminar el producto.',
-                                'error'
-                            );
-                        }
-                    });
-                }
-            });
-        });
-    });
-
-</script>
-
-
-<script>
-
-    $(document).ready(function () {
-        $('.btn-modificar-producto').on('click', function () {
-            var productoId = $(this).data('producto-id');
-            var descripcion = $(this).data('producto-descripcion');
-            var existencias = $(this).data('producto-existencias');
-            var estadoid = $(this).data('producto-estado_id');
-            var estadodescripcion = $(this).data('producto-estado_descripcion');
-            var categoriaid = $(this).data('producto-categoria_id');
-            var categoriadescripcion = $(this).data('producto-categoria_descripcion');
-            var precioStr = $(this).data('producto-precio').toString();
-            var precio = parseFloat(precioStr);
-
-            $('#id').val(productoId);
-            $('#descripcion').val(descripcion);
-            $('#existencias').val(existencias);
-            $('#precio').val(precio);
-            $('#estadoid').val(estadoid);
-            $('#categoriaid').val(categoriaid);
-            $('#categoria').val(categoriadescripcion);
-
-            $.ajax({
-                url: '/Producto/CargarCategorias',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    var select = $('#categoria');
-                    select.empty();
-
-                    $.each(data, function (index, category) {
-
-                        var option = $('<option>').text(category.categoria_descripcion).val(category.categoria_descripcion);
-
-                        option.attr('data-categoria-id', category.categoria_id);
-
-                        select.append(option);
-
-                        if (category.categoria_descripcion === categoriadescripcion) {
-                            option.prop('selected', true);
-                        }
-                    });
-                },
-            });
-
-            $.ajax({
-                url: '/Producto/CargarEstados',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    var select = $('#estado');
-                    select.empty();
-
-                    $.each(data, function (index, estado) {
-                        var option = $('<option>').text(estado.estado_descripcion).val(estado.estado_descripcion);
-
-                        option.attr('data-estado-id', estado.estado_id);
-
-                        select.append(option);
-
-                        if (estado.estado_descripcion === estadodescripcion) {
-                            option.prop('selected', true);
-                        }
-                    });
-                },
-            });
-
-
-        });
-        $("#btnNuevoProducto").click(function () {
-            $.ajax({
-                url: '/Producto/CargarCategorias',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    var select = $('#categoria2');
-                    select.empty();
-
-                    $.each(data, function (index, category) {
-                        var option = $('<option>')
-                            .val(category.categoria_id)
-                            .text(category.categoria_descripcion);
-
-                        select.append(option);
-                    });
-                },
-            });
-        });
-       
-    });
-</script>
-<script src="~/WebStyles/js/DatatableScripts.js"></script>
+<input type="hidden" id="urlProductos" value="@Url.Action("Productos", "Admin")">
