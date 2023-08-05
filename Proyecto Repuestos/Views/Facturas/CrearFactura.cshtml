@@ -1,0 +1,237 @@
+﻿@model IEnumerable<Proyecto_Repuestos.Entities.FacturaEncabezadoEnt>
+
+@{
+    ViewBag.Title = "CrearFactura";
+}
+
+@using (Html.BeginForm("CrearFactura", "Facturas", FormMethod.Post))
+{
+    <nav id="navigation">
+
+        <div class="container">
+            <div id="responsive-nav">
+
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
+                    <li><a href="@Url.Action("RepOriginales","Producto")">Originales</a></li>
+                    <li><a href="@Url.Action("RepGenericos","Producto")">Genericos</a></li>
+                    <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
+                    <li class="active"><a style=" color: red;" href="@Url.Action("Usuarios","Admin")">Panel Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="section">
+        <div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Factura</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Cliente">Cliente</label>
+                    @Html.DropDownList("clienteId", ViewBag.Combo as List<SelectListItem>, new { @class = "form-control", @id = "clienteId" })
+                </div>
+                <div class="form-group">
+                    <label for="Tipo">Tipo</label>
+                    <select id="tipoFactura" class="form-control" required>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Descripcion">Descripción</label>
+                    <input type="text" class="form-control" id="descripcionFactura" placeholder="Ingrese una descripción" required>
+                </div>
+
+                <br />
+                <hr />
+                <h5>Agregue los productos de la factura</h5>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 40px;">
+                        <label class="margin-15px-bottom text-black">Producto</label>
+                        @Html.DropDownList("Producto", ViewBag.ComboP as List<SelectListItem>, new { @class = "form-control", @id = "Producto" })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 40px;">
+                        <label class="margin-15px-bottom text-black">Cantidad</label>
+                        <input class="form-control" maxlength="50" id="Cantidad" type="number" step="1" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-5" style="padding-top: 40px;">
+                        <label class="margin-15px-bottom text-black">Precio</label>
+                        <input class="form-control" maxlength="100" id="Precio" type="number" />
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5" style="padding-top: 40px;">
+                        <label class="margin-15px-bottom text-black">Descuento</label>
+                        <input class="form-control" maxlength="100" id="Descuento" type="number" />
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-2" style="padding-top: 65px">
+                        <button type="button" class="btn btn-success btn-block" style="color: white;" onclick="agregarProducto()"><span class="fas fa-plus"></span></button>
+                    </div>
+                </div>
+
+                <br />
+                <hr />
+                <h5>Listado de productos</h5>
+                <br />
+                <div class="row" style="margin: 5px;">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table bootstrap-datatable datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="col-5" style="min-width: 50px;">Código del producto</th>
+                                        <th class="col-2">Cantidad</th>
+                                        <th class="col-2">Precio</th>
+                                        <th class="col-2">Descuento</th>
+                                        <th style="text-align: center; min-width: 70px;" class="col-1"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="facturaDetalle"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="@Url.Action("Facturas","Admin")" type="button" class="btn btn-danger">Cancelar</a>
+                <button type="button" class="btn btn-success" id="btnCrearFactura">Registrar</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    document.getElementById("btnCrearFactura").addEventListener("click", function () {
+        var clienteId = document.getElementById("clienteId").value;
+        var tipoFactura = document.getElementById("tipoFactura").value;
+        var descripcionFactura = document.getElementById("descripcionFactura").value;
+        if (clienteId == "" || tipoFactura == "") {
+            alert("Faltan datos en la factura, por favor verifique")
+            return;
+        }
+
+        var data = {
+            factura_id: 0,
+            cliente_id: clienteId,
+            factura_tipo: tipoFactura,
+            factura_fecha: new Date(),
+            factura_descripcion: descripcionFactura,
+            factura_total: 0,
+            factura_detalle: listaProductos
+        };
+
+        if (data.factura_detalle.length === 0) {
+            alert("Debe ingresar al menos un producto a la factura, por favor verifique")
+            return;
+        }
+
+        fetch("https://localhost:44376/api/RegistrarFactura", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                limpiarCampos()
+            })
+            .catch(error => {
+                console.error("Error al enviar la solicitud:", error);
+            });
+
+    });
+
+    var listaProductos = [];
+
+    function agregarProducto() {
+        var Producto = document.getElementById('Producto').value;
+        var Cantidad = document.getElementById('Cantidad').value;
+        var Descuento = document.getElementById('Descuento').value;
+        var Precio = document.getElementById('Precio').value;
+        if (Producto === "") {
+            alert('Seleccione un producto');
+            return;
+        }else if (Cantidad === "") {
+            alert('Digite una cantidad');
+            return;
+        } else if (Precio === "") {
+            alert('Digite un precio');
+            return;
+        }
+
+        var productoExistente = listaProductos.find(producto => producto.producto_id === Producto);
+
+        if (productoExistente) {
+            alert('Este producto ya se encuentra en la lista');
+            return;
+        }
+
+        listaProductos.push({
+            facturaD_id: 0,
+            producto_id: Producto,
+            facturaD_cantidad: Cantidad,
+            facturaD_precio: Precio,
+            facturaD_descuento: Descuento,
+            facturaD_total: 0,
+        });
+
+        document.getElementById('Producto').value = '';
+        document.getElementById('Cantidad').value = '';
+        document.getElementById('Descuento').value = '';
+        document.getElementById('Precio').value = '';
+
+        actualizarTablaDetalle();
+    }
+
+    function eliminarProducto(index) {
+        listaProductos.splice(index, 1);
+        actualizarTablaDetalle();
+    }
+
+    function actualizarTablaDetalle() {
+        var facturaDetalle = document.getElementById('facturaDetalle');
+        facturaDetalle.innerHTML = '';
+
+        listaProductos.forEach(function (datos, index) {
+            var row = facturaDetalle.insertRow();
+
+            var productoCell = row.insertCell(0);
+            productoCell.innerHTML = datos.producto_id;
+
+            var cantidadCell = row.insertCell(1);
+            cantidadCell.innerHTML = datos.facturaD_cantidad;
+
+            var precioCell = row.insertCell(2);
+            precioCell.innerHTML = datos.facturaD_precio;
+
+            var descuentoCell = row.insertCell(3);
+            descuentoCell.innerHTML = datos.facturaD_descuento;
+
+            var quitarCell = row.insertCell(4);
+            var quitarButton = document.createElement('button');
+            quitarButton.className = 'btn btn-danger';
+            quitarButton.innerHTML = '<span class="fas fa-trash"></span>';
+            quitarButton.setAttribute('onclick', `eliminarProducto(${index})`);
+            quitarCell.appendChild(quitarButton);
+        });
+    }
+
+    function limpiarCampos() {
+        document.getElementById("clienteId").value = "";
+        document.getElementById("tipoFactura").value = "";
+        document.getElementById("descripcionFactura").value = "";
+        var facturaDetalle = document.getElementById('facturaDetalle');
+        facturaDetalle.innerHTML = '';
+    }
+</script>
+
+<style>
+    .botonPlus {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+</style>

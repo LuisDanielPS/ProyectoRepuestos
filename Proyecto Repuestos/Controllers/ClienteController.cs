@@ -12,6 +12,13 @@ namespace Proyecto_Repuestos.Controllers
     {
         ClienteModel modelClientes = new ClienteModel();
 
+        [HttpGet]
+        public ActionResult ConsultarClientes(ClienteEnt entidad)
+        {
+            var datos = modelClientes.ConsultarClientes();
+            return Json(datos, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult CreaCliente(ClienteEnt entidad)
         {

@@ -14,7 +14,5 @@ namespace Proyecto_Repuestos.Entities
         public string cliente_correo { get; set; }
         public string cliente_telefono { get; set; }
         public string cliente_direccion { get; set; }
-
-
     }
 }
