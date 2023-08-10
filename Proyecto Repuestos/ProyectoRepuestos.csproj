@@ -360,6 +360,7 @@
     <Content Include="Views\Admin\Facturas.cshtml" />
     <Content Include="Views\Facturas\CrearFactura.cshtml" />
     <Content Include="Views\Home\Terminos.cshtml" />
+    <Content Include="Views\Facturas\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

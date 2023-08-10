@@ -76,9 +76,9 @@
                                         <td>@item.factura_fecha</td>
                                         <td>@item.cliente_id</td>
                                         <td>
-                                            <button class="btn btn-warning btn-modificar-cliente">
+                                            <a href="@Url.Action("Editar", "Facturas", new { q = item.factura_id })" class="btn btn-warning btn-modificar-cliente">
                                                 <i class="fa fa-solid fa-pencil-square-o"></i>
-                                            </button>
+                                            </a>
                                             <a href="@Url.Action("EliminarFactura","Facturas", new { q = item.factura_id })" class="btn btn-danger btnBorrarFactura">
                                                 <i class="fa fa-trash"></i>
                                             </a>

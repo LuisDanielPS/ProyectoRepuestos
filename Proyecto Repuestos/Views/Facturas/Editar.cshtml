@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Proyecto_Repuestos.Entities.FacturaEncabezadoEnt>
+﻿@model Proyecto_Repuestos.Entities.FacturaEncabezadoEnt
 
 @{
     ViewBag.Title = "CrearFactura";
 }
 
-@using (Html.BeginForm("CrearFactura", "Facturas", FormMethod.Post))
+@using (Html.BeginForm("EditarFactura", "Facturas", FormMethod.Post))
 {
     <nav id="navigation">
 
@@ -27,6 +27,7 @@
                 <h5 class="modal-title" id="exampleModalLongTitle">Creación de Factura</h5>
             </div>
             <div class="modal-body">
+                @Html.HiddenFor(m => m.factura_id, new { @id = "facturaId" })
                 <div class="form-group">
                     <label for="Cliente">Cliente</label>
                     @Html.DropDownList("clienteId", ViewBag.Combo as List<SelectListItem>, new { @class = "form-control", @id = "clienteId" })
@@ -104,6 +105,7 @@
 
 <script>
     document.getElementById("btnCrearFactura").addEventListener("click", function () {
+        var facturaId = document.getElementById("facturaId").value;
         var clienteId = document.getElementById("clienteId").value;
         var tipoFactura = document.getElementById("tipoFactura").value;
         var descripcionFactura = document.getElementById("descripcionFactura").value;
@@ -116,7 +118,7 @@
         }
 
         var data = {
-            factura_id: 0,
+            factura_id: facturaId,
             cliente_id: clienteId,
             factura_tipo: tipoFactura,
             factura_fecha: new Date(),
@@ -133,24 +135,27 @@
             return;
         }
 
-        fetch("https://localhost:44376/api/RegistrarFactura", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://localhost:44376/api/EditarFactura?q=" + facturaId, requestOptions)
+            .then(response => response.text())
             .then(result => {
                 Swal.fire({
                     text: result,
                     icon: 'success'
                 });
-                limpiarCampos()
             })
-            .catch(error => {
-                console.error("Error al enviar la solicitud: ", error);
-            });
+            .catch(error => console.log('Error al enviar la solicitud: ', error));
 
     });
 
@@ -180,8 +185,8 @@
             });
             return;
         }
-
-        var productoExistente = listaProductos.find(producto => producto.producto_id === Producto);
+        
+        var productoExistente = listaProductos.find(producto => producto.producto_id == Producto);
 
         if (productoExistente) {
             Swal.fire({
@@ -248,6 +253,28 @@
         var facturaDetalle = document.getElementById('facturaDetalle');
         facturaDetalle.innerHTML = '';
     }
+
+    function traerDatosFactura() {
+        var facturaId = document.getElementById("facturaId").value;
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("https://localhost:44376/api/ConsultarFactura?q=" + facturaId, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("clienteId").value = result.cliente_id;
+                document.getElementById("tipoFactura").value = result.factura_tipo;
+                document.getElementById("descripcionFactura").value = result.factura_descripcion;
+                listaProductos = result.factura_detalle
+                actualizarTablaDetalle()
+            })
+            .catch(error => console.log('Error al generar la consulta: ', error));
+    }
+
+    traerDatosFactura()
+
 </script>
 
 <style>

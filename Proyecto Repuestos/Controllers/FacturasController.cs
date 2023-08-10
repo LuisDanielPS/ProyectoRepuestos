@@ -54,6 +54,51 @@ namespace Proyecto_Repuestos.Controllers
         }
 
         [HttpGet]
+        public ActionResult Editar(long q)
+        {
+            var datos = modelFacturas.ConsultarFactura(q);
+            var clientes = modelClientes.ConsultarClientes();
+            var productos = modelProductos.ConsultarProductos();
+            var ComboClientes = new List<SelectListItem>();
+            foreach (var item in clientes)
+            {
+                ComboClientes.Add(new SelectListItem
+                {
+                    Text = item.cliente_nombre,
+                    Value = item.cliente_id.ToString()
+                });
+            }
+
+            var ComboProductos = new List<SelectListItem>();
+            foreach (var item in productos)
+            {
+                ComboProductos.Add(new SelectListItem
+                {
+                    Text = item.producto_descripcion,
+                    Value = item.producto_id.ToString()
+                });
+            }
+
+            ViewBag.Combo = ComboClientes;
+            ViewBag.ComboP = ComboProductos;
+            return View(datos);
+        }
+
+        [HttpPost]
+        public ActionResult EditarFactura(FacturaEncabezadoEnt entidad)
+        {
+            var resp = modelFacturas.EditarFactura(entidad);
+
+            if (resp > 0)
+                return RedirectToAction("Facturas", "Admin");
+            else
+            {
+                ViewBag.MsjPantalla = "No fue posible actualizar la información de la factura";
+                return View("Editar");
+            }
+        }
+
+        [HttpGet]
         public ActionResult EliminarFactura(int q)
         {
             var resp = modelFacturas.EliminarFactura(q);

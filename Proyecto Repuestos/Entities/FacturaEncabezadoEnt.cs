@@ -13,5 +13,6 @@ namespace Proyecto_Repuestos.Entities
         public DateTime factura_fecha { get; set; }
         public string factura_descripcion { get; set; }
         public decimal factura_total { get; set; }
+        public List<FacturasDetalleEnt> factura_detalle { get; set; }
     }
 }

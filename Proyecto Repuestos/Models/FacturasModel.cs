@@ -53,6 +53,22 @@ namespace Proyecto_Repuestos.Models
             }
         }
 
+        public FacturaEncabezadoEnt ConsultarFactura(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ConsultarFactura?q=" + q;
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<FacturaEncabezadoEnt>().Result;
+                }
+
+                return null;
+            }
+        }
+
         public int EliminarFactura(int factura_id)
         {
             try
@@ -73,6 +89,24 @@ namespace Proyecto_Repuestos.Models
             }
             catch (Exception ex)
             {
+                return 0;
+            }
+        }
+
+        public int EditarFactura(FacturaEncabezadoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditarFactura";
+                JsonContent body = JsonContent.Create(entidad);
+
+                HttpResponseMessage resp = client.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
                 return 0;
             }
         }
