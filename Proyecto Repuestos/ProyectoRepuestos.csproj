@@ -359,6 +359,7 @@
     <Content Include="Views\Producto\RepOriginales.cshtml" />
     <Content Include="Views\Admin\Facturas.cshtml" />
     <Content Include="Views\Facturas\CrearFactura.cshtml" />
+    <Content Include="Views\Home\Terminos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

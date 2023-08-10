@@ -19,9 +19,9 @@
         <div id="top-header">
             <div class="container">
                 <ul class="header-links pull-left">
-                    <li><a href="#"><i class="fa fa-phone"></i> 2444-0542</a></li>
-                    <li><a href="#"><i class="fa fa-envelope"></i> repuestostotal@gmail.com</a></li>
-                    <li><a href="https://goo.gl/maps/VP424apG2Ypz8cjd8"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
+                    <li><i class="fa fa-phone"></i><span style="color: white;">2444-0542</span></li>
+                    <li><a href="mailto: repuestosrojas@gmail.com"><i class="fa fa-envelope"></i> repuestosrojas@gmail.com</a></li>
+                    <li><a href="https://goo.gl/maps/ngQWBDYNty6Smir18"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
                 </ul>
                 <ul class="header-links pull-right">
                     @if (Session["NombreUsuario"] != null)
@@ -80,25 +80,23 @@
                         <div class="col-md-3 col-xs-6">
                             <div class="footer">
                                 <h3 class="footer-title">Acerca de nosotros</h3>
-                                <p>Proveemos repuestos de vehículos confiables y de calidad, satisfaciendo las necesidades de nuestros clientes.</p>
+                                <p style="text-align: justify;">Proveemos repuestos de vehículos confiables y de calidad, satisfaciendo las necesidades de nuestros clientes.</p>
                                 <ul class="footer-links">
-                                    <li><a href="https://goo.gl/maps/VP424apG2Ypz8cjd8"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
-                                    <li><a href="#"><i class="fa fa-phone"></i>2444-0542</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope-o"></i>repuestostotal@gmail.com</a></li>
+                                    <li><a href="https://goo.gl/maps/ngQWBDYNty6Smir18"><i class="fa fa-map-marker"></i>Provincia de Alajuela, Grecia</a></li>
+                                    <li><i class="fa fa-phone"></i>2444-0542</li>
+                                    <li><a href="mailto: repuestosrojas@gmail.com"><i class="fa fa-envelope-o"></i>repuestosrojas@gmail.com</a></li>
                                 </ul>
                             </div>
                         </div>
-
                         <div class="clearfix visible-xs"></div>
 
                         <div class="col-md-3 col-xs-6">
                             <div class="footer">
                                 <h3 class="footer-title">Información</h3>
                                 <ul class="footer-links">
-                                    <li><a href="#">¿Quiénes somos?</a></li>
-                                    <li><a href="#">Contáctenos</a></li>
-                                    <li><a href="#">Política de privacidad</a></li>
-                                    <li><a href="#">Términos y condiciones</a></li>
+                                        <li><a href="@Url.Action("About","Home")">¿Quiénes somos?</a></li>
+                                        <li><a href="@Url.Action("Contact","Home")">Contáctenos</a></li>
+                                        <li><a href="@Url.Action("Terminos","Home")">Términos y Condiciones</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -108,10 +106,12 @@
                                 <h3 class="footer-title">Servicios</h3>
                                 <ul class="footer-links">
                                     <li><a href="@Url.Action("Login","Home")">Mi Cuenta</a></li>
-                                    <li><a href="#">Ver Carrito</a></li>
-                                    <li><a href="#">Ayuda</a></li>
                                 </ul>
                             </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6" style="text-align: center;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.4664689894144!2d-84.31286108863766!3d10.060811171942337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0584c904beee9%3A0x990168da655a2578!2sRepuestos%20Rojas%20Grecia!5e0!3m2!1ses-419!2scr!4v1691643192537!5m2!1ses-419!2scr" width="350" height="275" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
                         </div>
                     </div>
                 </div>

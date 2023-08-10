@@ -15,7 +15,7 @@
                 <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
                 @if (Session["idRolUsuario"] != null && Session["idRolUsuario"].ToString() == "1")
                 {
-                    <li><a style=" color: red;" href="@Url.Action("PanelAdmin", "Admin")">Panel Admin</a></li>
+                    <li><a style=" color: red;" href="@Url.Action("Facturas", "Admin")">Panel Admin</a></li>
                 }
                 </ul>
             <!-- /NAV -->

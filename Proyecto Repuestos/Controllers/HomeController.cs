@@ -173,6 +173,22 @@ namespace Proyecto_Repuestos.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult About()
+        {
+            return View();
+        }
 
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Terminos()
+        {
+            return View();
+        }
     }
 }
