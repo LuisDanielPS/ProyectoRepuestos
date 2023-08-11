@@ -7,6 +7,7 @@ namespace Proyecto_Repuestos.Entities
 {
     public class ProveedoresEnt
     {
+        public long proveedor_id { get; set; }
         public string proveedor_cedula { get; set; }
         public string proveedor_nombre { get; set; }
         public string proveedor_apellido { get; set; }

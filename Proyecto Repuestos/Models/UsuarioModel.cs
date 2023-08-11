@@ -28,23 +28,23 @@ namespace Proyecto_Repuestos.Models
                 return null;
             }
         }
-        
         public int RegistrarUsuario(UsuarioEnt entidad)
         {
             using (var client = new HttpClient())
             {
                 string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RegistrarUsuario";
-                var content = new StringContent(JsonConvert.SerializeObject(entidad), Encoding.UTF8, "application/json");
-                HttpResponseMessage resp = client.PostAsync(url, content).Result;
+                JsonContent body = JsonContent.Create(entidad); //Serializar
+                HttpResponseMessage resp = client.PostAsync(url, body).Result;
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return 1;
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
                 }
 
                 return 0;
             }
         }
+
         public List<UsuarioEnt> ConsultarUsuarios()
         {
             try
@@ -66,6 +66,58 @@ namespace Proyecto_Repuestos.Models
             {
 
                 return new List<UsuarioEnt>();
+            }
+        }
+
+        public List<RolesEnt> CargaRoles()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ConsultarRoles";
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<RolesEnt>>().Result;
+                }
+
+                return new List<RolesEnt>();
+            }
+        }
+
+        public int EditaUsuarioAPI(UsuarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditarUsuario";
+                JsonContent body = JsonContent.Create(entidad); // Serializar
+                HttpResponseMessage resp = client.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+        public int EliminaUsuario(int usuario_id)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + $"api/EliminarUsuario?usuario_id={usuario_id}";
+
+                HttpResponseMessage resp = client.DeleteAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 

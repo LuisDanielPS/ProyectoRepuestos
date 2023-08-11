@@ -37,16 +37,16 @@
             <br><br>
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevoproveedor" style="font-weight: bold">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevorol" style="font-weight: bold">
                         Nuevo Rol
                     </button>
                 </div>
             </div>
             <br>
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="row">
                     <div class="col-lg-12">
-                        <table class="table align-middle bg-white" id="tableusuarios">
+                        <table class="table align-middle bg-white ml-auto" id="rolestable">
                             <thead>
                                 <tr>
                                     <th style="text-align:center">Rol Id</th>
@@ -61,8 +61,16 @@
                                         <td>@item.rol_id</td>
                                         <td>@item.rol_descripcion</td>
                                         <td>
-                                            <button class="btn btn-warning" data-toggle="modal" data-target="#modificaproveedor"><i class="fa fa-solid fa-pencil-square-o"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btn-modificar-roles"
+                                                    data-toggle="modal"
+                                                    data-target="#modificarol"
+                                                    data-rol-id="@item.rol_id"
+                                                    data-rol-descripcion="@item.rol_descripcion">
+                                                <i class="fa fa-solid fa-pencil-square-o"></i>
+                                            </button>
+                                            <button class="btn btn-danger btnborrarol" data-rol-id="@item.rol_id">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 }
@@ -74,77 +82,51 @@
             <br><br>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="nuevoproveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Proveedor</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="cedula-proveedor">Cédula del Proveedor:</label>
-                    <input type="text" class="form-control" id="cedula-proveedor" placeholder="Ingrese la cédula del proveedor">
+    <!-- Modal Modificar Rol -->
+    <div class="modal fade" id="modificarol" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- Use a form to wrap the modal content -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Rol</h5>
                 </div>
-                <div class="form-group">
-                    <label for="nombre-proveedor">Nombre del Proveedor:</label>
-                    <input type="text" class="form-control" id="nombre-proveedor" placeholder="Ingrese el nombre del proveedor">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="rolid">ID</label>
+                        <input type="number" class="form-control" id="rolid" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="roldescripcion">Descripcion</label>
+                        <input type="text" class="form-control" id="roldescripcion">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="apellido-proveedor">Apellido del Proveedor:</label>
-                    <input type="text" class="form-control" id="apellido-proveedor" placeholder="Ingrese el apellido del proveedor">
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="btnGuardarRol">Confirmar</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="correo-proveedor">Correo del Proveedor:</label>
-                    <input type="email" class="form-control" id="correo-proveedor" placeholder="Ingrese el correo del proveedor">
-                </div>
-                <div class="form-group">
-                    <label for="telefono-proveedor">Teléfono del Proveedor:</label>
-                    <input type="text" class="form-control" id="telefono-proveedor" placeholder="Ingrese el teléfono del proveedor">
-                </div>
-                <div class="form-group">
-                    <label for="direccion-proveedor">Dirección del proveedor:</label>
-                    <input type="text" class="form-control" id="direccion-proveedor" placeholder="Ingrese la dirección del proveedor">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal Modificar Usuario -->
-<div class="modal fade" id="modificausuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Usuario</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="identificacion">Identificacion</label>
-                    <input type="number" class="form-control" id="identificacion" disabled min="0">
+    <!-- Modal Nuevo Rol -->
+    <div class="modal fade" id="nuevorol" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Creación de Rol</h5>
                 </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del usuario">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="descripcionrolnuevo">Descripcion:</label>
+                        <input type="text" class="form-control" id="descripcionrolnuevo" placeholder="Ingrese la descripcion del rol" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="btncrearol">Confirmar</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="correo">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico del usuario">
-                </div>
-                <div class="form-group">
-                    <label for="rol">Rol</label>
-                    <input type="text" class="form-control" id="rol" disabled>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
             </div>
         </div>
     </div>
-</div>
+    <input type="hidden" id="urlRoles" value="@Url.Action("Roles", "Admin")">

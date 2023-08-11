@@ -251,6 +251,8 @@
     <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Entities\CategoriaEnt.cs" />
     <Compile Include="Entities\EstadoEnt.cs" />
@@ -365,6 +367,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cliente\" />
+    <Folder Include="Views\Proveedor\" />
+    <Folder Include="Views\Rol\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>

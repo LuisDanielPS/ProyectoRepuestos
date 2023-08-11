@@ -34,12 +34,13 @@ namespace Proyecto_Repuestos.Controllers
             return View(datos);
         }
 
+        [HttpGet]
         public ActionResult CargarCategorias()
         {
             var datos = modelProductos.CargarCategorias();
             return Json(datos, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpGet]
         public ActionResult CargarEstados()
         {
             var datos2 = modelProductos.CargarEstados();
@@ -74,7 +75,7 @@ namespace Proyecto_Repuestos.Controllers
             }
             else
             {
-                ViewBag.MsjPantalla = "No se ha podido actualizar la información del producto";
+                ViewBag.MsjPantalla = "No se ha podido eliminar la información del producto";
                 return View("Productos");
             }
         }

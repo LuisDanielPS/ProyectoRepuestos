@@ -29,7 +29,7 @@
                         <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
                         <li><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
                         <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
-                        <li class="active"><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
+                        <li class="active"><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></liclass="active">
                         <li><a href="@Url.Action("Roles","Admin")">Roles</a></li>
                     </ul>
                 </div>
@@ -44,9 +44,9 @@
             </div>
             <br>
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="row">
                     <div class="col-lg-12">
-                        <table class="table align-middle bg-white" id="tableusuarios">
+                        <table class="table align-middle bg-white ml-auto" id="clientestable">
                             <thead>
                                 <tr>
                                     <th style="text-align:center">Cédula</th>
@@ -69,8 +69,21 @@
                                         <td>@item.proveedor_telefono</td>
                                         <td>@item.proveedor_direccion</td>
                                         <td>
-                                            <button class="btn btn-warning" data-toggle="modal" data-target="#modificaproveedor"><i class="fa fa-solid fa-pencil-square-o"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btn-modificar-proveedor"
+                                                    data-toggle="modal"
+                                                    data-target="#modificaproveedor"
+                                                    data-proveedor-id="@item.proveedor_id"
+                                                    data-proveedor-cedula="@item.proveedor_cedula"
+                                                    data-proveedor-nombre="@item.proveedor_nombre"
+                                                    data-proveedor-apellido="@item.proveedor_apellido"
+                                                    data-proveedor-correo="@item.proveedor_correo"
+                                                    data-proveedor-telefono="@item.proveedor_telefono"
+                                                    data-proveedor-direccion="@item.proveedor_direccion">
+                                                <i class="fa fa-solid fa-pencil-square-o"></i>
+                                            </button>
+                                            <button class="btn btn-danger btnborraproveedor" data-proveedor-id="@item.proveedor_id">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 }
@@ -79,81 +92,99 @@
                     </div>
                 </div>
             </div>
+
             <br><br>
 
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="nuevoproveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Creación de Proveedor</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="cedula-proveedor">Cédula del Proveedor:</label>
-                    <input type="text" class="form-control" id="cedula-proveedor" placeholder="Ingrese la cédula del proveedor">
+    <!-- Modal Modificar Producto -->
+    <div class="modal fade" id="modificaproveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- Use a form to wrap the modal content -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Proveedor</h5>
                 </div>
-                <div class="form-group">
-                    <label for="nombre-proveedor">Nombre del Proveedor:</label>
-                    <input type="text" class="form-control" id="nombre-proveedor" placeholder="Ingrese el nombre del proveedor">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="idproveedor">ID</label>
+                        <input type="text" class="form-control" id="idproveedor" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="cedulaproveedor">Cedula</label>
+                        <input min="1" type="number" class="form-control" id="cedulaproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreproveedor">Nombre</label>
+                        <input type="text" class="form-control" id="nombreproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidoproveedor">Apellido</label>
+                        <input type="text" class="form-control" id="apellidoproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="correoproveedor">Correo</label>
+                        <input type="email" class="form-control" id="correoproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefonoproveedor">Telefono</label>
+                        <input min="1" type="number" class="form-control" id="telefonoproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="direccionproveedor">direccion</label>
+                        <input type="text" class="form-control" id="direccionproveedor">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="apellido-proveedor">Apellido del Proveedor:</label>
-                    <input type="text" class="form-control" id="apellido-proveedor" placeholder="Ingrese el apellido del proveedor">
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="btnGuardarProveedor">Confirmar</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="correo-proveedor">Correo del Proveedor:</label>
-                    <input type="email" class="form-control" id="correo-proveedor" placeholder="Ingrese el correo del proveedor">
-                </div>
-                <div class="form-group">
-                    <label for="telefono-proveedor">Teléfono del Proveedor:</label>
-                    <input type="text" class="form-control" id="telefono-proveedor" placeholder="Ingrese el teléfono del proveedor">
-                </div>
-                <div class="form-group">
-                    <label for="direccion-proveedor">Dirección del proveedor:</label>
-                    <input type="text" class="form-control" id="direccion-proveedor" placeholder="Ingrese la dirección del proveedor">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal Modificar Usuario -->
-<div class="modal fade" id="modificausuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modificacion de Usuario</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="identificacion">Identificacion</label>
-                    <input type="number" class="form-control" id="identificacion" disabled min="0">
+
+    <!-- Modal Nuevo Proveedor -->
+    <div class="modal fade" id="nuevoproveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Creación de Proveedor</h5>
                 </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del usuario">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cedulaproveedor">Cedula</label>
+                        <input min="1" type="number" class="form-control" id="cedulaproveedornuevo" required placeholder="Ingrese la cedula del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreproveedor">Nombre</label>
+                        <input type="text" class="form-control" id="nombreproveedornuevo" required placeholder="Ingrese el nombre del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidoproveedor">Apellido</label>
+                        <input type="text" class="form-control" id="apellidoproveedornuevo" required placeholder="Ingrese el apellido del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="correoproveedor">Correo</label>
+                        <input type="email" class="form-control" id="correoproveedornuevo" required placeholder="Ingrese el correo del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefonoproveedor">Telefono</label>
+                        <input  min="1" type="number" class="form-control" id="telefonoproveedornuevo" required placeholder="Ingrese el telefono del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="direccionproveedor">direccion</label>
+                        <input type="text" class="form-control" id="direccionproveedornuevo" required placeholder="Ingrese la direccion del proveedor">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="correo">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico del usuario">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btncreaproveedor">Confirmar</button>
                 </div>
-                <div class="form-group">
-                    <label for="rol">Rol</label>
-                    <input type="text" class="form-control" id="rol" disabled>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Confirmar</button>
             </div>
         </div>
     </div>
-</div>
+    <input type="hidden" id="urlProveedores" value="@Url.Action("Proveedores", "Admin")">
