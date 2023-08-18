@@ -26,6 +26,7 @@
                 <div class="section-nav">
                     <ul class="section-tab-nav tab-nav">
                         <li class="active"><a href="@Url.Action("Facturas","Admin")">Facturas</a></li>
+                        <li><a href="@Url.Action("Ordenes","Admin")">Órdenes</a></li>
                         <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
                         <li><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
                         <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
@@ -129,19 +130,12 @@
 </div>-->
 
 <script>
-    document.getElementById("btnCrearFactura").addEventListener("click", function () {
-        var clienteId = document.getElementById("clienteId").value;
-        var tipoFactura = document.getElementById("tipoFactura").value;
-        var descripcionFactura = document.getElementById("descripcionFactura").value;
-
-        alert(clienteId + tipoFactura + descripcionFactura)
-    });
 
     function cargarClientesEnSelect() {
-        var data = @Html.Raw(Json.Encode(Model)); // Asigna el modelo JSON desde Razor a una variable JavaScript
+        var data = @Html.Raw(Json.Encode(Model));
 
         var select = document.getElementById('clienteId');
-        select.innerHTML = ""; // Limpia el select antes de agregar opciones
+        select.innerHTML = "";
 
         data.forEach(function(cliente) {
             var option = document.createElement('option');

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Proyecto_Repuestos.Entities.FacturaEncabezadoEnt>
+﻿@model Proyecto_Repuestos.Entities.OrdenEncabezadoEnt
 
 @{
-    ViewBag.Title = "CrearFactura";
+    ViewBag.Title = "CrearOrden";
 }
 
-@using (Html.BeginForm("CrearFactura", "Facturas", FormMethod.Post))
+@using (Html.BeginForm("EditarOrden", "Ordenes", FormMethod.Post))
 {
     <nav id="navigation">
 
@@ -24,45 +24,53 @@
     <div class="section">
         <div>
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Crear Factura</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar Orden de Compra</h5>
             </div>
             <div class="modal-body">
+                @Html.HiddenFor(m => m.orden_id, new { @id = "ordenID" })
                 <div class="form-group">
-                    <label for="Cliente">Cliente</label>
-                    @Html.DropDownList("clienteId", ViewBag.Combo as List<SelectListItem>, new { @class = "form-control", @id = "clienteId" })
+                    <label for="Cliente">Proveedor</label>
+                    @Html.DropDownList("proveedorID", ViewBag.Combo as List<SelectListItem>, new { @class = "form-control", @id = "proveedorID" })
+                </div>
+                <div class="form-group">
+                    <label for="Estado">Tipo</label>
+                    <select id="estadoOrden" class="form-control" required>
+                        <option value="2">Pendiente</option>
+                        <option value="3">Finalizada</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="Tipo">Tipo</label>
-                    <select id="tipoFactura" class="form-control" required>
+                    <select id="tipoOrden" class="form-control" required>
                         <option value="Efectivo">Efectivo</option>
                         <option value="Tarjeta">Tarjeta</option>
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="FacturarA">Facturar a</label>
+                    <input type="text" class="form-control" id="facturarA" placeholder="A nombre de" required>
+                </div>
+                <div class="form-group">
+                    <label for="EntregarA">Entregar a</label>
+                    <input type="text" class="form-control" id="entregarA" placeholder="Se entrega a" required>
+                </div>
+                <div class="form-group">
                     <label for="Descripcion">Descripción</label>
-                    <input type="text" class="form-control" id="descripcionFactura" placeholder="Ingrese una descripción" required>
+                    <input type="text" class="form-control" id="descripcionOrden" placeholder="Ingrese una descripción" required>
                 </div>
 
                 <br />
                 <hr />
-                <h5>Agregue los productos de la factura</h5>
+                <h5>Agregue los productos de la orden de compra</h5>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 40px;">
                         <label class="margin-15px-bottom text-black">Producto</label>
                         @Html.DropDownList("Producto", ViewBag.ComboP as List<SelectListItem>, new { @class = "form-control", @id = "Producto" })
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 40px;">
+                    <div class="col-lg-5 col-md-5 col-sm-5" style="padding-top: 40px;">
                         <label class="margin-15px-bottom text-black">Cantidad</label>
                         <input class="form-control" maxlength="50" id="Cantidad" type="number" step="1" />
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-5" style="padding-top: 40px;">
-                        <label class="margin-15px-bottom text-black">Precio</label>
-                        <input class="form-control" maxlength="100" id="Precio" type="number" />
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5" style="padding-top: 40px;">
-                        <label class="margin-15px-bottom text-black">Descuento</label>
-                        <input class="form-control" maxlength="100" id="Descuento" type="number" />
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-2" style="padding-top: 65px">
                         <button type="button" class="btn btn-success btn-block" style="color: white;" onclick="agregarProducto()"><span class="fas fa-plus"></span></button>
@@ -81,13 +89,11 @@
                                     <tr>
                                         <th class="col-5" style="min-width: 50px;">Código del producto</th>
                                         <th class="col-2">Cantidad</th>
-                                        <th class="col-2">Precio</th>
-                                        <th class="col-2">Descuento</th>
                                         <th style="text-align: center; min-width: 70px;" class="col-1"></th>
                                     </tr>
                                 </thead>
 
-                                <tbody id="facturaDetalle"></tbody>
+                                <tbody id="ordenDetalle"></tbody>
                             </table>
                         </div>
                     </div>
@@ -95,19 +101,23 @@
 
             </div>
             <div class="modal-footer">
-                <a href="@Url.Action("Facturas","Admin")" type="button" class="btn btn-danger">Cancelar</a>
-                <button type="button" class="btn btn-success" id="btnCrearFactura">Registrar</button>
+                <a href="@Url.Action("Ordenes","Admin")" type="button" class="btn btn-danger">Cancelar</a>
+                <button type="button" class="btn btn-success" id="btnCrearOrden">Registrar</button>
             </div>
         </div>
     </div>
 }
 
 <script>
-    document.getElementById("btnCrearFactura").addEventListener("click", function () {
-        var clienteId = document.getElementById("clienteId").value;
-        var tipoFactura = document.getElementById("tipoFactura").value;
-        var descripcionFactura = document.getElementById("descripcionFactura").value;
-        if (clienteId == "" || tipoFactura == "") {
+    document.getElementById("btnCrearOrden").addEventListener("click", function () {
+        var ordenID = document.getElementById("ordenID").value;
+        var proveedorID = document.getElementById("proveedorID").value;
+        var estadoOrden = document.getElementById("estadoOrden").value;
+        var tipoOrden = document.getElementById("tipoOrden").value;
+        var facturarA = document.getElementById("facturarA").value;
+        var entregarA = document.getElementById("entregarA").value;
+        var descripcionOrden = document.getElementById("descripcionOrden").value;
+        if (proveedorID == "" || tipoOrden == "") {
             Swal.fire({
                 text: 'Faltan datos en la factura, por favor verifique',
                 icon: 'warning'
@@ -116,41 +126,46 @@
         }
 
         var data = {
-            factura_id: 0,
-            cliente_id: clienteId,
-            factura_tipo: tipoFactura,
-            factura_fecha: new Date(),
-            factura_descripcion: descripcionFactura,
-            factura_total: 0,
-            factura_detalle: listaProductos
+            orden_id: ordenID,
+            proveedor_id: proveedorID,
+            estado_id: estadoOrden,
+            orden_tipo: tipoOrden,
+            orden_fecha: new Date(),
+            orden_facturarA: facturarA,
+            orden_entregarA: entregarA,
+            orden_descripcion: descripcionOrden,
+            orden_detalle: listaProductos
         };
 
-        if (data.factura_detalle.length === 0) {
+        if (data.orden_detalle.length === 0) {
             Swal.fire({
-                text: 'Debe ingresar al menos un producto a la factura, por favor verifique',
+                text: 'Debe ingresar al menos un producto a la orden, por favor verifique',
                 icon: 'warning'
             });
             return;
         }
 
-        fetch("https://localhost:44376/api/RegistrarFactura", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://localhost:44376/api/EditarOrden", requestOptions)
+            .then(response => response.text())
             .then(result => {
                 Swal.fire({
                     text: result,
                     icon: 'success'
                 });
-                limpiarCampos()
             })
-            .catch(error => {
-                console.error("Error al enviar la solicitud: ", error);
-            });
+            .catch(error => console.log('Error al enviar la solicitud: ', error));
 
     });
 
@@ -159,8 +174,6 @@
     function agregarProducto() {
         var Producto = document.getElementById('Producto').value;
         var Cantidad = document.getElementById('Cantidad').value;
-        var Descuento = document.getElementById('Descuento').value;
-        var Precio = document.getElementById('Precio').value;
         if (Producto === "") {
             Swal.fire({
                 text: 'Seleccione un producto',
@@ -173,15 +186,9 @@
                 icon: 'warning'
             });
             return;
-        } else if (Precio === "") {
-            Swal.fire({
-                text: 'Digite el precio',
-                icon: 'warning'
-            });
-            return;
         }
 
-        var productoExistente = listaProductos.find(producto => producto.producto_id === Producto);
+        var productoExistente = listaProductos.find(producto => producto.producto_id == Producto);
 
         if (productoExistente) {
             Swal.fire({
@@ -192,18 +199,14 @@
         }
 
         listaProductos.push({
-            facturaD_id: 0,
+            ordenD_id: 0,
+            orden_id: 0,
             producto_id: Producto,
-            facturaD_cantidad: Cantidad,
-            facturaD_precio: Precio,
-            facturaD_descuento: Descuento,
-            facturaD_total: 0,
+            producto_cantidad: Cantidad,
         });
 
         document.getElementById('Producto').value = '';
         document.getElementById('Cantidad').value = '';
-        document.getElementById('Descuento').value = '';
-        document.getElementById('Precio').value = '';
 
         actualizarTablaDetalle();
     }
@@ -214,25 +217,19 @@
     }
 
     function actualizarTablaDetalle() {
-        var facturaDetalle = document.getElementById('facturaDetalle');
-        facturaDetalle.innerHTML = '';
+        var ordenDetalle = document.getElementById('ordenDetalle');
+        ordenDetalle.innerHTML = '';
 
         listaProductos.forEach(function (datos, index) {
-            var row = facturaDetalle.insertRow();
+            var row = ordenDetalle.insertRow();
 
             var productoCell = row.insertCell(0);
             productoCell.innerHTML = datos.producto_id;
 
             var cantidadCell = row.insertCell(1);
-            cantidadCell.innerHTML = datos.facturaD_cantidad;
+            cantidadCell.innerHTML = datos.producto_cantidad;
 
-            var precioCell = row.insertCell(2);
-            precioCell.innerHTML = datos.facturaD_precio;
-
-            var descuentoCell = row.insertCell(3);
-            descuentoCell.innerHTML = datos.facturaD_descuento;
-
-            var quitarCell = row.insertCell(4);
+            var quitarCell = row.insertCell(2);
             var quitarButton = document.createElement('button');
             quitarButton.className = 'btn btn-danger';
             quitarButton.innerHTML = '<span class="fas fa-trash"></span>';
@@ -242,12 +239,39 @@
     }
 
     function limpiarCampos() {
-        document.getElementById("clienteId").value = "";
-        document.getElementById("tipoFactura").value = "";
-        document.getElementById("descripcionFactura").value = "";
-        var facturaDetalle = document.getElementById('facturaDetalle');
-        facturaDetalle.innerHTML = '';
+        document.getElementById("proveedorID").value = "";
+        document.getElementById("tipoOrden").value = "";
+        document.getElementById("facturarA").value = "";
+        document.getElementById("entregarA").value = "";
+        document.getElementById("descripcionOrden").value = "";
+        var ordenDetalle = document.getElementById('ordenDetalle');
+        ordenDetalle.innerHTML = '';
     }
+
+    function traerDatosFactura() {
+        var ordenID = document.getElementById("ordenID").value;
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("https://localhost:44376/api/ConsultarOrden?q=" + ordenID, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("proveedorID").value = result.proveedor_id;
+                document.getElementById("estadoOrden").value = result.estado_id;
+                document.getElementById("tipoOrden").value = result.orden_tipo;
+                document.getElementById("facturarA").value = result.orden_facturarA;
+                document.getElementById("entregarA").value = result.orden_entregarA;
+                document.getElementById("descripcionOrden").value = result.orden_descripcion;
+                listaProductos = result.orden_detalle
+                actualizarTablaDetalle()
+            })
+            .catch(error => console.log('Error al generar la consulta: ', error));
+    }
+
+    traerDatosFactura()
+
 </script>
 
 <style>

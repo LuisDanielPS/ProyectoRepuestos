@@ -10,6 +10,7 @@ namespace Proyecto_Repuestos.Controllers
     public class AdminController : Controller
     {
         FacturasModel modelFacturas = new FacturasModel();
+        OrdenModel modelOrdenes = new OrdenModel();
         UsuarioModel modelUsuarios = new UsuarioModel();
         ProductoModel modelProductos = new ProductoModel();
         ClienteModel modelClientes = new ClienteModel();
@@ -26,6 +27,13 @@ namespace Proyecto_Repuestos.Controllers
         public ActionResult Facturas()
         {
             var datos = modelFacturas.ConsultarFacturas();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult Ordenes()
+        {
+            var datos = modelOrdenes.ConsultarOrdenes();
             return View(datos);
         }
 

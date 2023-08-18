@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Proyecto_Repuestos.Entities.OrdenEncabezadoEnt>
+
+@{
+    ViewBag.Title = "PanelAdmin";
+}
+
+<nav id="navigation">
+
+    <div class="container">
+        <div id="responsive-nav">
+
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
+                <li><a href="@Url.Action("RepOriginales","Producto")">Originales</a></li>
+                <li><a href="@Url.Action("RepGenericos","Producto")">Genericos</a></li>
+                <li><a href="@Url.Action("RepUsados","Producto")">Usados</a></li>
+                <li class="active"><a style=" color: red;" href="@Url.Action("Ordenes","Admin")">Panel Admin</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="section">
+    <div class="container" style="margin-top:-30px">
+        <div class="col-md-12">
+            <div class="section-title">
+                <div class="section-nav">
+                    <ul class="section-tab-nav tab-nav">
+                        <li><a href="@Url.Action("Facturas","Admin")">Facturas</a></li>
+                        <li class="active"><a href="@Url.Action("Ordenes","Admin")">Órdenes</a></li>
+                        <li><a href="@Url.Action("Usuarios","Admin")">Usuarios</a></li>
+                        <li><a href="@Url.Action("Clientes","Admin")">Clientes</a></li>
+                        <li><a href="@Url.Action("Productos","Admin")">Productos</a></li>
+                        <li><a href="@Url.Action("Proveedores","Admin")">Proveedores</a></li>
+                        <li><a href="@Url.Action("Roles","Admin")">Roles</a></li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <a href="@Url.Action("CrearOrden", "Ordenes")" class="btn btn-success" style="font-weight: bold">
+                        Generar Orden
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div style="text-align:center" class="alert alert-warning" role="alert">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
+
+                        <table class="table align-middle bg-white ml-auto" id="ordenestable">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center"># Orden</th>
+                                    <th style="text-align:center">Descripción</th>
+                                    <th style="text-align:center">Fecha</th>
+                                    <th style="text-align:center">Proveedor ID</th>
+                                    <th style="text-align:center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.orden_id</td>
+                                        <td>@item.orden_descripcion</td>
+                                        <td>@item.orden_fecha</td>
+                                        <td>@item.proveedor_id</td>
+                                        <td>
+                                            <a href="@Url.Action("Editar", "Ordenes", new { q = item.orden_id })" class="btn btn-warning btn-modificar-orden">
+                                                <i class="fa fa-solid fa-pencil-square-o"></i>
+                                            </a>
+                                            <a href="@Url.Action("EliminarOrden","Ordenes", new { q = item.orden_id })" class="btn btn-danger btnBorrarOrden">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+- orden_id y ordenD_id tienen que cambiarse a entity (autoincremental).
+- Volver a generar el modelo de la base de datos en el API.
+
+
+
+select * from Productos;
+
+select * from ordenesCompra;
+
+select * from ordenDetalle;
+
+select * from facturas;
+
+select * from facturasDetalle;
+
+delete from ordenesCompra where orden_id = 0;
+
+select * from estados;
+
+select * from proveedores;
+
+insert into proveedores values ('3101000000','Repuestos Gigante','','gigante@gmail.com','2222-2222','San Pedro, Montes de Oca');
+insert into proveedores values ('3101000001','Repuestos Guacamaya','','guaca@gmail.com','2222-0000','San Pedro, Montes de Oca');
+
+insert into estados values ('Pendiente');
+insert into estados values ('Finalizado');

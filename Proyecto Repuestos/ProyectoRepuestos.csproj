@@ -250,6 +250,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -258,6 +259,8 @@
     <Compile Include="Entities\EstadoEnt.cs" />
     <Compile Include="Entities\FacturaEncabezadoEnt.cs" />
     <Compile Include="Entities\FacturasDetalleEnt.cs" />
+    <Compile Include="Entities\OrdenDetalleEnt.cs" />
+    <Compile Include="Entities\OrdenEncabezadoEnt.cs" />
     <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\ProveedoresEnt.cs" />
@@ -267,6 +270,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FacturasModel.cs" />
+    <Compile Include="Models\OrdenModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
@@ -363,6 +367,9 @@
     <Content Include="Views\Facturas\CrearFactura.cshtml" />
     <Content Include="Views\Home\Terminos.cshtml" />
     <Content Include="Views\Facturas\Editar.cshtml" />
+    <Content Include="Views\Admin\Ordenes.cshtml" />
+    <Content Include="Views\Ordenes\CrearOrden.cshtml" />
+    <Content Include="Views\Ordenes\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
