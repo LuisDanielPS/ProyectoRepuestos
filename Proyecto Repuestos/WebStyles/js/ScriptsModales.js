@@ -326,7 +326,7 @@ $(document).ready(function () {
     });
 });
 
-//Script que crea el producto
+//Script que crea el cliente
 $("#btncreacliente").click(function () {
     var cliente_cedula = $("#cedulanuevo").val().trim();;
     var cliente_nombre = $("#nombrenuevo").val().trim();;
@@ -349,7 +349,7 @@ $("#btncreacliente").click(function () {
     var entidadnueva = {
         cliente_cedula: cliente_cedula,
         cliente_nombre: cliente_nombre,
-        cliente_apellidos: cliente_apellidos,
+        cliente_apellido: cliente_apellidos,
         cliente_correo: cliente_correo,
         cliente_telefono: cliente_telefono,
         cliente_direccion: cliente_direccion

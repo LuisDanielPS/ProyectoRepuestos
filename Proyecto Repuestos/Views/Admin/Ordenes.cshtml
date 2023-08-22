@@ -56,12 +56,13 @@
                             </div>
                         }
 
-                        <table class="table align-middle bg-white ml-auto" id="ordenestable">
+                        <table class="table align-middle bg-white ml-auto" id="clientestable">
                             <thead>
                                 <tr>
                                     <th style="text-align:center"># Orden</th>
                                     <th style="text-align:center">Descripción</th>
                                     <th style="text-align:center">Fecha</th>
+                                    <th style="text-align:center">Estado ID</th>
                                     <th style="text-align:center">Proveedor ID</th>
                                     <th style="text-align:center">Acciones</th>
                                 </tr>
@@ -69,20 +70,21 @@
                             <tbody style="text-align:center">
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>@item.orden_id</td>
-                                        <td>@item.orden_descripcion</td>
-                                        <td>@item.orden_fecha</td>
-                                        <td>@item.proveedor_id</td>
-                                        <td>
-                                            <a href="@Url.Action("Editar", "Ordenes", new { q = item.orden_id })" class="btn btn-warning btn-modificar-orden">
-                                                <i class="fa fa-solid fa-pencil-square-o"></i>
-                                            </a>
-                                            <a href="@Url.Action("EliminarOrden","Ordenes", new { q = item.orden_id })" class="btn btn-danger btnBorrarOrden">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@item.orden_id</td>
+                                    <td>@item.orden_descripcion</td>
+                                    <td>@item.orden_fecha</td>
+                                    <td>@item.estado_id</td>
+                                    <td>@item.proveedor_id</td>
+                                    <td>
+                                        <a href="@Url.Action("Editar", "Ordenes", new { q = item.orden_id })" class="btn btn-warning btn-modificar-orden">
+                                            <i class="fa fa-solid fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="@Url.Action("EliminarOrden","Ordenes", new { q = item.orden_id })" class="btn btn-danger btnBorrarOrden">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
