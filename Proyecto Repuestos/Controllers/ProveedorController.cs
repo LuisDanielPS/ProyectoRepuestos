@@ -54,7 +54,7 @@ namespace Proyecto_Repuestos.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult EliminaProveedor(int proveedor_id)
         {
             var resultado = modelProveedor.EliminarProveedor(proveedor_id);
