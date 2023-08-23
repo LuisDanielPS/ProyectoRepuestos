@@ -38,7 +38,7 @@ namespace Proyecto_Repuestos.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                    return 1;
                 }
 
                 return 0;
